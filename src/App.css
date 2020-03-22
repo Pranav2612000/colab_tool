@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-color: rgb(205,195,240);
+}
+
+#pad {
+  background-color:rgb(201,25,240);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
