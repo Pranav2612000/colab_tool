@@ -22,6 +22,12 @@ const DraggableList = props => {
         x: 50,
         y: 50,
     });
+    useEffect(() => {
+        setPos({
+            x: props.x,
+            y: props.y
+        });
+    }, [props.x,props.y]);
     console.log("Reloaded");
     console.log(trans);
     useEffect(() => {
@@ -150,6 +156,38 @@ const DraggableList = props => {
                 y: el_props.y -120
             }
             setPos(pos_obj);
+            let prev_list = [];
+            for(var i = 0; i < props.board.list.length; i++) {
+                if(props.board.list[i].title == props.title) {
+                    prev_list = props.board.list[i];
+                    break;
+                }
+            }
+            if(prev_list.length == 0) {
+                console.log("Error");
+                return;
+            }
+            prev_list.pos = {
+                X: el_props.x,
+                Y: el_props.y - 120
+            };
+            let reqData = {
+                users: props.board.usernames,
+                boardname: props.board.boardname,
+                board_list: props.board.list 
+            };
+            axios.post(url + "board/addboard/",reqData, {
+            headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
+            body: reqData
+            })
+            .then(res => {
+            console.log(res);
+            })
+            .catch(err => {
+            console.log(err);
+            })
+            console.log("end");
+            console.log(reqData);
             //get Transform that was applied
         }
         console.log("preventing");
