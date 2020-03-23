@@ -22,8 +22,9 @@ const boards = new Schema({
                 cards: [
                     {
                     index;
+                    title:
                     text:
-                    due-date:
+                    due_date:
                     attachement:
                     }
                 ]

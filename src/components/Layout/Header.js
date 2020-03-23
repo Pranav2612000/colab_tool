@@ -12,6 +12,7 @@ const Header = (props) => {
   const [newListName, setNewListName] = useState("");
   const toggle = () => setModal(!modal);
   const addList = async () => {
+    console.log(props.board);
     let board_list = props.board.list;
     if(board_list == undefined) {
       board_list = [];

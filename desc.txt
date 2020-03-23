@@ -1,0 +1,12 @@
+The deployment redirects you to the login page.
+You can signup by clicking on "Sign me Up" button.
+On succesful login you are redirected to the Home page.
+You can click on the top navbar to open sidepan which allows you to view different boards and select a board.
+On selecting a board, it opens in the main page, with different lists.
+You can create a new list, delete old lists.
+You can also move the lists around the board(How cool is that!)
+A lot of other features couldnt be implemented due to lack of time.
+
+Used MERN stack for development.
+
+Deployed using nginx, pm2 on aws.

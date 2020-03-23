@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Container, Row, Col, Jumbotron, Card, CardBody } from "reactstrap";
+import {Link} from 'react-router-dom';
 import LoginForm from "../Widgets/LoginForm";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                   <LoginForm />
                 </CardBody>
               </Card>
+              <Link to="/signup">Sign me Up!</Link>
             </Jumbotron>
           </Col>
           <Col />

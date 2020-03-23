@@ -44,7 +44,11 @@ const Workspace = props => {
     var lists = [];
     function displayLists() {
       console.log(board);
-      console.log(props.boardname);
+      if(board.list == undefined) {
+        return (
+          <h1>No Lists Added</h1>
+        )
+      }
       for(var i = 0; i < board.list.length; i++) {
         lists.push(
           <DraggableList id={i} x={board.list[i].pos.X} y={board.list[i].pos.Y} title={board.list[i].title} cards={board.list[i].cards} board={board}></DraggableList>

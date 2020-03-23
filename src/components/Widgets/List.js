@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import axios from 'axios';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Card from "../Widgets/Card.js";
+import ListBar from "../Widgets/ListBar";
+import url from "../../links"
 
 // fake data generator
-const getItems = count =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
+const getItems = count => {
+  var data = Array.from({ length: count }, (v, k) => k).map(k => ({
     id: `item-${k}`,
     content: `item ${k}`
   }));
+  console.log(data);
+  return data;
+}
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -23,7 +30,7 @@ const grid = 8;
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: "none",
-  padding: grid * 2,
+  //padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
   top: 0,
   left: 0,
@@ -41,7 +48,8 @@ class App extends Component {
     super(props);
     console.log(props);
     this.state = {
-      items: getItems(4),
+      items: getItems(2),
+      cards: this.props.cards,
       draggable: true 
     };
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -49,12 +57,22 @@ class App extends Component {
     this.toggleDragging = this.toggleDragging.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if(this.props.cards != prevProps.cards) {
+        this.setState({
+            cards: this.props.cards
+        });
+        console.log(this.props.cards);
+    }
+  }
   getListStyle(isDraggingOver) {
           return {
                 background: isDraggingOver ? "lightblue" : "lightgrey",
+                border: "solid 2px #092672",
+                "border-radius": 10,
                 padding: grid,
                 //position: "relative",
-                width: 250,
+                width: 300,
             }
     };
 
@@ -76,37 +94,17 @@ class App extends Component {
       return;
     }
 
-    const items = reorder(
-      this.state.items,
+    const cards = reorder(
+      this.state.cards,
       result.source.index,
       result.destination.index
     );
 
     this.setState({
-      items
+      cards
     });
   }
 
-  addCard() {
-    /*
-    await axios.post(url + "board/addboard/",reqData, {
-      headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
-      body: reqData
-    })
-    .then(res => {
-      console.log(res);
-      if(res.status == 200) {
-        console.log("success");
-        window.location.reload();
-      } else {
-        console.log("Something went wrong");
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    })
-    */
-  };
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
   render() {
@@ -119,11 +117,12 @@ class App extends Component {
               ref={provided.innerRef}
               style={this.getListStyle(snapshot.isDraggingOver)}
             >
-            <div>{this.props.title}</div>
-            <button onClick={this.toggleDragging}>Move</button>
-            <button onClick={this.addCard}>AddCard</button>
-              {this.state.items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index} isDragDisabled={this.props.innerdrag}>
+              <ListBar title={this.props.title} moveCallback={this.toggleDragging} addCardCallback={this.props.addCardCallback}/>
+            {/*<div>{this.props.title}</div>*/}
+            {/*<button onClick={this.toggleDragging}>Move</button>
+            <button onClick={this.addCard}>AddCard</button>*/}
+              {this.state.cards.map((item, index) => (
+                <Draggable key={item.title} draggableId={item.title} index={index} isDragDisabled={this.props.innerdrag}>
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
@@ -135,7 +134,8 @@ class App extends Component {
                         provided.draggableProps.style
                       )}
                     >
-                      {item.content}
+                      <Card title={item.title} text={item.text} due_date={item.due_date}/>
+                      {/*item.content*/}
                     </div>
                   )}
                 </Draggable>
