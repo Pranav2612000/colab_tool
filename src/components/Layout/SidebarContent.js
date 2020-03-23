@@ -108,7 +108,7 @@ const SidebarContent = props => {
       <div style={styles.content}>
           <Link path="/" /*component={}*/>
             <span style={styles.sidebarLink}>
-              Profile
+              Profile(In Progress)
             </span>
           </Link>
           <Link path = '/' /*component={}*/> 
@@ -127,13 +127,13 @@ const SidebarContent = props => {
             </span>
           </Link>
           {teamToggle ? (
-              <h4>Showing Team Boards</h4>
+              <h4>In Progress</h4>
             ):(
               <span></span>
             )}
           <Link path="/" /*component={}*/>
             <span style={styles.sidebarLink}>
-              Settings
+              Settings(In Progress)
             </span>
           </Link>
           <Logout text={"Logout"}/>

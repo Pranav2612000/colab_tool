@@ -7,6 +7,7 @@ import Header from "./Header";
 import MaterialTitlePanel from "./MaterialTitlePanel";
 import SidebarContent from "./SidebarContent";
 import Workspace from "./Workspace";
+import {Jumbotron} from 'reactstrap';
 import {Container, Row, Col} from 'react-bootstrap';
 
 const styles = {
@@ -135,8 +136,15 @@ class App extends React.Component {
             <MaterialTitlePanel title={contentHeader}>
             </MaterialTitlePanel>
           </div>
-          <Header id = 'header2'/>
-            <Workspace/>
+          <Jumbotron>
+        <h1 className="display-3">Welcome !</h1>
+        <p className="lead">Press the Blue Navbar at the top to navigate to different boards(Some features are still being developed)</p>
+        <hr className="my-2" />
+        <p>On the board page, press the button labelled "M" to start movement of the lists. You can then move them freely.</p>
+        <p>Press the '+' labelled button to add buttons to cards. </p>
+        <p className="lead">
+        </p>
+      </Jumbotron>
         </Sidebar>
     );
   }

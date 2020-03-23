@@ -46,7 +46,7 @@ const Workspace = props => {
       console.log(board);
       if(board.list == undefined) {
         return (
-          <h1>No Lists Added</h1>
+          <h1></h1>
         )
       }
       for(var i = 0; i < board.list.length; i++) {
