@@ -90,14 +90,14 @@ const DraggableList = props => {
                   {isDraggable ? (
                     <Draggable bounds={"#pad"} onStop={onDragStop} onStart={onStart}>
                         <div id={"dragzone" + props.id} style={getStyle()}>
-                            <List dragCallback={preventListDrag} innerdrag={true}></List>
+                            <List dragCallback={preventListDrag} innerdrag={true} title={props.title} cards={props.cards} board={props.board}></List>
                         </div>
                     </Draggable>
                   ) 
                   : 
                   (
                     <div id={"dragzone" + props.id} style={getStyle()}>
-                        <List dragCallback={preventListDrag} innerdrag={false}></List>
+                        <List dragCallback={preventListDrag} innerdrag={false} title={props.title} cards={props.cards} board={props.board}></List>
                     </div>
                   )}
         </span>

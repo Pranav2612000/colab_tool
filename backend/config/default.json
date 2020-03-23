@@ -1,0 +1,6 @@
+{
+  "mongoURI2" : "mongodb://localhost/colab_tool",
+  "jwtSecret": "TRUMP_IS_FOOLISH",
+  "mongoURI": "mongodb+srv://pranav:CoLaBToOL@colabtool-c8lqw.mongodb.net/test?retryWrites=true&w=majority"
+}
+

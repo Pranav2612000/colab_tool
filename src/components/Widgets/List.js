@@ -87,6 +87,26 @@ class App extends Component {
     });
   }
 
+  addCard() {
+    /*
+    await axios.post(url + "board/addboard/",reqData, {
+      headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
+      body: reqData
+    })
+    .then(res => {
+      console.log(res);
+      if(res.status == 200) {
+        console.log("success");
+        window.location.reload();
+      } else {
+        console.log("Something went wrong");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    */
+  };
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
   render() {
@@ -99,8 +119,9 @@ class App extends Component {
               ref={provided.innerRef}
               style={this.getListStyle(snapshot.isDraggingOver)}
             >
-            <div>Title</div>
+            <div>{this.props.title}</div>
             <button onClick={this.toggleDragging}>Move</button>
+            <button onClick={this.addCard}>AddCard</button>
               {this.state.items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index} isDragDisabled={this.props.innerdrag}>
                   {(provided, snapshot) => (

@@ -1,7 +1,7 @@
 .App {
+  font-family: sans-serif;
   text-align: center;
 }
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -42,8 +42,25 @@ body {
 }
 
 #pad {
-  background-color:rgb(201,25,240);
+  background-color: orchid;
   position: absolute;
   height: 100%;
   width: 100%;
+}
+#submit {
+  background-color: limegreen;
+}
+
+.jumbotron {
+  margin-top: 50px;
+  background-color: snow;
+}
+.card {
+  margin-left: 25px;
+  margin-right: 25px;
+  background-color: orchid;
+}
+
+hr {
+  width: 70%;
 }
