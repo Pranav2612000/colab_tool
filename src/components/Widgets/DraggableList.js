@@ -127,8 +127,9 @@ const DraggableList = props => {
         width: 300,
         top: pos.y,
         left: pos.x,
+        color: "red",
+        //transform: "translate(" + trans.x + "," + trans.y + ")",
         position: "absolute",
-        //transform: "translate(" + trans.x + "," + trans.y + ")"
         //transform: "translate(" + 0 + "," + 0 + ")"
         });
     };
@@ -199,13 +200,18 @@ const DraggableList = props => {
         console.log(pos);
     }
     function onStart(e) {
-        let el_name = "dragzone" + props.id 
-        let el = document.getElementById(el_name)
+        console.log(props.id);
+        let el_name = "dragzone" + props.id;
+        let el = document.getElementById(el_name);
+        console.log(el);
             let trans_str = el.style.transform;
-            let p1 = trans_str.split("(")[1];
-            let x = p1.split(",")[0];
-            let p2 = p1.split(",")[1]; 
-            let y = p2.split(")")[0];
+            console.log(trans_str);
+            if(trans_str != "translate(0px)") {
+              let p1 = trans_str.split("(")[1];
+              let x = p1.split(",")[0];
+              let p2 = p1.split(",")[1]; 
+              let y = p2.split(")")[0];
+            }
             let trans_obj = {
                 x: trans.x,
                 y: trans.y
