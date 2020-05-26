@@ -22,14 +22,18 @@ const DraggableList = props => {
         x: 50,
         y: 50,
     });
+
+    /* Update the position when props.x & props.y changes. */
     useEffect(() => {
         setPos({
             x: props.x,
             y: props.y
         });
     }, [props.x,props.y]);
+
     console.log("Reloaded");
-    console.log(trans);
+
+  /*
     useEffect(() => {
         const fetchData = async () => {
             if(props.boards == undefined) {
@@ -51,6 +55,7 @@ const DraggableList = props => {
         };
         fetchData();
     });
+  */
     /*
     if(isDraggable == true) {
         const el_name = "dragzone" + props.id;
@@ -80,14 +85,14 @@ const DraggableList = props => {
         let prev_list;
         let new_list;
         let new_card = {
-            //index: ,
             title: cardTitle,
             text: cardText,
             due_date: dueDate,
             attachement: null
         };
-        //console.log(props.title);
-        //console.log(props.board);
+
+        /* Iterate through all lists of the board to find the list
+        *  to be modified. */
         for(var i = 0; i < props.board.list.length; i++) {
             if(props.board.list[i].title == props.title) {
                 prev_list = props.board.list[i];
@@ -95,25 +100,29 @@ const DraggableList = props => {
             }
         }
         if(prev_list.length == 0) {
-            console.log("Error");
+            console.log("List not found.");
             return;
         }
+
+        /* Add the new card to the cards of the list. */
         prev_cards = prev_list.cards;
         prev_cards.push(new_card);
-        //console.log(prev_list);
+
+        /* Send the new card data to the server. */
         let reqData = {
             users: props.board.usernames,
             boardname: props.board.boardname,
             board_list: props.board.list 
         };
-        //console.log(props.board);
         console.log(reqData);
+
         await axios.post(url + "board/addboard/",reqData, {
           headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
           body: reqData
         })
         .then(res => {
           console.log(res);
+          toggle();
         })
         .catch(err => {
           console.log(err);
@@ -121,42 +130,64 @@ const DraggableList = props => {
         console.log("end");
         return;
     }
+
+    /* get the CSS being used for the list.*/
     const getStyle = () => {
-        console.log(trans);
         return ({
         width: 300,
         top: pos.y,
         left: pos.x,
         color: "red",
-        //transform: "translate(" + trans.x + "," + trans.y + ")",
         position: "absolute",
         //transform: "translate(" + 0 + "," + 0 + ")"
         });
     };
 
-    function preventListDrag() {
+    /* executes when 'M' button pressed. */
+    function toggleListDrag() {
+        /* pressed when draging was enabled, to stop dragging. */
         if(isDraggable == true) {
+          /*
+            // Get transform style of current list.
             let el_name = "dragzone" + props.id 
             let el = document.getElementById(el_name)
-            console.log(el.style.transform);
             let trans_str = el.style.transform;
+
+            // Get x,y parameters of transform, to identify
+            // where the element was moved and update trans
             let p1 = trans_str.split("(")[1];
-            let x = p1.split(",")[0];
+            let x, y;
+            if(p1 != undefined) {
+              x = p1.split(",")[0];
+            } else {
+              x = 0;
+            }
             let p2 = p1.split(",")[1]; 
-            let y = p2.split(")")[0];
+            if(p2 != undefined) {
+              y = p2.split(")")[0];
+            } else {
+              y = 0;
+            }
             let trans_obj = {
                 x: x,
                 y: y
             }
-            console.log(trans_obj);
-            setTrans(trans_obj);
+          */
+
+            // Get transform style of current list.
+            let el_name = "dragzone" + props.id 
+            let el = document.getElementById(el_name)
+
+            /* Get Current position of element. */
             let el_props = el.getBoundingClientRect(); 
-            console.log(el_props);
             let pos_obj = {
                 x: el_props.x,
-                y: el_props.y -120
+                y: el_props.y -120 //Magic number- obtained using trial & error method.
             }
             setPos(pos_obj);
+
+            /* Iterate through all lists of the board to find the list
+             *  to be modified. */
             let prev_list = [];
             for(var i = 0; i < props.board.list.length; i++) {
                 if(props.board.list[i].title == props.title) {
@@ -165,76 +196,88 @@ const DraggableList = props => {
                 }
             }
             if(prev_list.length == 0) {
-                console.log("Error");
+                console.log("List not found.");
                 return;
             }
             prev_list.pos = {
                 X: el_props.x,
                 Y: el_props.y - 120
             };
+
+            /* send request to update the position in database. */
             let reqData = {
                 users: props.board.usernames,
                 boardname: props.board.boardname,
                 board_list: props.board.list 
             };
+            console.log(reqData);
             axios.post(url + "board/addboard/",reqData, {
             headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
             body: reqData
             })
             .then(res => {
-            console.log(res);
+              console.log(res);
             })
             .catch(err => {
-            console.log(err);
+              console.log(err);
             })
             console.log("end");
-            console.log(reqData);
-            //get Transform that was applied
         }
-        console.log("preventing");
-        console.log(isDraggable);
+
+        //Toggle draggable property.
         setIsDraggable(!isDraggable);
         console.log(pos);
     }
+  
+    /* Function called when dragging is stopped. */
     function onDragStop(e) {
         console.log(pos);
     }
+
+    /* Function called when dragging is started. */
     function onStart(e) {
-        console.log(props.id);
+        
+        /* Select the element being dragged. */
         let el_name = "dragzone" + props.id;
         let el = document.getElementById(el_name);
-        console.log(el);
-            let trans_str = el.style.transform;
-            console.log(trans_str);
-            if(trans_str != "translate(0px)") {
-              let p1 = trans_str.split("(")[1];
-              let x = p1.split(",")[0];
-              let p2 = p1.split(",")[1]; 
-              let y = p2.split(")")[0];
-            }
-            let trans_obj = {
-                x: trans.x,
-                y: trans.y
-            }
-            console.log(trans_obj);
-        document.getElementById(el_name).style.transform = trans_obj;
+
+        /* Select its transform property.*/
+        let trans_str = el.style.transform;
+
+      /*
+        if(trans_str != "translate(0px)") {
+          let p1 = trans_str.split("(")[1];
+          let x = p1.split(",")[0];
+          let p2 = p1.split(",")[1]; 
+          let y = p2.split(")")[0];
+        }
+      */
+        let trans_obj = {
+            x: trans.x,
+            y: trans.y
+        }
+        console.log(trans_obj);
+        //document.getElementById(el_name).style.transform = trans_obj;
     }
-    console.log(pos);
+
     return (
         <span id="spanned">
+                    {/*<Draggable bounds={"#pad"} onStop={onDragStop} onStart={onStart}>*/}
                   {isDraggable ? (
-                    <Draggable bounds={"#pad"} onStop={onDragStop} onStart={onStart}>
+                    <Draggable bounds={"#pad"} onStop={onDragStop}>
                         <div id={"dragzone" + props.id} style={getStyle()}>
-                            <List cards={props.cards} dragCallback={preventListDrag} innerdrag={true} title={props.title} cards={props.cards} board={props.board} addCardCallback={toggle}></List>
+                            <List cards={props.cards} dragCallback={toggleListDrag} innerdrag={true} title={props.title} cards={props.cards} board={props.board} addCardCallback={toggle}></List>
                         </div>
                     </Draggable>
                   ) 
                   : 
                   (
                     <div id={"dragzone" + props.id} style={getStyle()}>
-                        <List cards={props.cards} dragCallback={preventListDrag} innerdrag={false} title={props.title} cards={props.cards} board={props.board} addCardCallback={toggle}></List>
+                        <List cards={props.cards} dragCallback={toggleListDrag} innerdrag={false} title={props.title} cards={props.cards} board={props.board} addCardCallback={toggle}></List>
                     </div>
                   )}
+            
+          {/* Modal to add new cards. */}
                 <Modal isOpen={modal} toggle={toggle} className={className}>
                     <Form>
                     <ModalHeader toggle={toggle}>Add Card</ModalHeader>
@@ -271,27 +314,6 @@ const DraggableList = props => {
                                 onChange={e => setDueDate(e.target.value)}
                             />
                         </FormGroup>
-                        {/*
-                        <FormGroup>
-                        <Label for="exampleFile">Member Photo</Label>
-                        <div>
-                            <img
-                            src={this.state.data.mem_photo}
-                            alt="Member"
-                            width="150px"
-                            height="150px"
-                            />
-                            <br />
-                            <FileBase64
-                            multiple={false}
-                            //onDone={files => set_mem_photo(files.base64)}
-                            name="mem_photo"
-                            onDone = {this.saveMemImage}
-                            //onChange={this.saveImage}
-                            />
-                        </div>
-                        </FormGroup>
-                        */}
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={addCard}>
