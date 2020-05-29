@@ -10,6 +10,17 @@ import MaterialTitlePanel from "../Layout/MaterialTitlePanel";
 import SidebarContent from "../Layout/SidebarContent";
 import Workspace from "../Layout/Workspace";
 import {Container, Row, Col} from 'react-bootstrap';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 const styles = {
   contentHeaderMenuLink: {
@@ -95,7 +106,17 @@ class App extends React.Component {
       </p>
     );
   }
-
+  makeStyles= (theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+  });
   renderPropNumber(prop) {
     const setMethod = ev => {
       const newState = {};
@@ -112,6 +133,7 @@ class App extends React.Component {
   }
 
   render() {
+    const classes=this.makeStyles;
     const sidebar = <SidebarContent />;
 
     const contentHeader = (
@@ -146,10 +168,47 @@ class App extends React.Component {
 
     return (
         <Sidebar {...sidebarProps}>
-          <div id="header">
-            <MaterialTitlePanel title={contentHeader}>
-            </MaterialTitlePanel>
-          </div>
+          <div className={classes.root} style={{backgroundColor:"red"}} >
+      
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} onClick={this.menuButtonClick} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <p style={{fontFamily:"Times New Roman",marginTop:"12px"}} >TASK MANAGEMENT SYSTEM</p>
+            <div style={{width:"65vw",marginLeft:"14vw"}} >
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                style={{marginLeft:"67vw"}}
+                onClick={this.handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={this.state.anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={this.state.open1}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                <MenuItem onClick={this.handleClose}>My account</MenuItem>
+              </Menu>
+            </div>
+        </Toolbar>
+      </AppBar>
+    </div>
             <Workspace boardname={this.state.boardname} creator={this.props.creator ? this.props.creator : ''}/>
         </Sidebar>
     );

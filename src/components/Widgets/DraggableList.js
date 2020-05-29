@@ -261,11 +261,11 @@ const DraggableList = props => {
     }
 
     return (
-        <span id="spanned">
+        <span style={{backgroundColor:"white"}} id="spanned">
                     {/*<Draggable bounds={"#pad"} onStop={onDragStop} onStart={onStart}>*/}
                   {isDraggable ? (
-                    <Draggable bounds={"#pad"} onStop={onDragStop}>
-                        <div id={"dragzone" + props.id} style={getStyle()}>
+                    <Draggable  bounds={"#pad"} onStop={onDragStop}>
+                        <div style={{backgroundColor:"white"}} id={"dragzone" + props.id} style={getStyle()}>
                             <List cards={props.cards} dragCallback={toggleListDrag} innerdrag={true} title={props.title} cards={props.cards} board={props.board} addCardCallback={toggle}></List>
                         </div>
                     </Draggable>

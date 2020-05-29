@@ -6,12 +6,12 @@ const Example = (props) => {
   const toggleNavbar = () => setCollapsed(!collapsed);
 
   return (
-    <Navbar>
+    <Navbar style={{backgroundColor:"white"}} >
     <Navbar.Brand>{props.title}</Navbar.Brand>
     <Navbar.Toggle />
     <Navbar.Collapse className="justify-content-end">
-        <Button onClick={props.moveCallback}>M</Button>
-        <Button variant = "success" onClick={props.addCardCallback}>+</Button>
+        <Button style={{backgroundColor:"blue"}} onClick={props.moveCallback}>M</Button>
+        <Button style={{backgroundColor:"#12cc15",marginLeft:"5%"}} variant = "success" onClick={props.addCardCallback}>+</Button>
     </Navbar.Collapse>
   </Navbar>
   );

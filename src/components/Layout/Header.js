@@ -48,14 +48,14 @@ const Header = (props) => {
     console.log(props.board);
   }
   return (
-      <span>
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-          <Navbar.Brand>{props.title}</Navbar.Brand>
+      <span >
+        <Navbar style={{backgroundColor:"#c6c6f7",borderTopWidth:0,borderLeftWidth:0,borderRightWidth:0,borderBottomWidth:"2px"}} collapseOnSelect expand="lg" bg="white" variant="light">
+          <Navbar.Brand style={{color:"#5340c9",marginLeft:"45%",fontSize:"2.5vh",fontStyle:"bold",fontFamily:"Arial"}} >Task name:{props.title}</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
             <Nav> 
-              <Nav.Link onClick={toggle}>Add List</Nav.Link>
-              <Nav.Link>
+              <Nav.Link style={{color:"#5340c9",fontSize:"2vh"}} onClick={toggle}>Add List</Nav.Link>
+              <Nav.Link style={{color:"#5340c9",fontSize:"2vh"}} >
                   Add Colloborators
               </Nav.Link>
             </Nav>

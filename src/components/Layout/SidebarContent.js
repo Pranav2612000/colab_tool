@@ -111,13 +111,13 @@ const SidebarContent = props => {
       <div style={styles.content} >
           <Link path="/" /*component={}*/>
             <span style={styles.sidebarLink}>
-              <p style={{color:"black"}} >Profile(In Progress)</p>
+              <p style={{color:"black",fontSize:"2vh"}} >Profile(In Progress)</p>
             </span>
           </Link>
-          <hr style={{backgroundColor:"blue"}}></hr>
+          <div style={{height:0,width:"100%",border:"2px solid blue",borderBottomWidth:"2px",borderTopWidth:"0px",borderRightWidth:"0px",borderLeftWidth:"0px"}} ></div>
           <Link path = '/' /*component={}*/> 
             <span style={styles.sidebarLink} onClick={viewPersonalBoards}>
-            <p style={{color:"black"}} >Personal Boards</p>
+            <p style={{color:"black",fontSize:"2vh"}} >Personal Boards</p>
             </span>
           </Link>
           {personalToggle ? (
@@ -125,10 +125,10 @@ const SidebarContent = props => {
             ):(
               <span></span>
             )}
-            <hr style={{backgroundColor:"blue"}}></hr>
+          <div style={{height:0,width:"100%",border:"2px solid blue",borderBottomWidth:"2px",borderTopWidth:"0px",borderRightWidth:"0px",borderLeftWidth:"0px"}} ></div>
           <Link exact path="/" /*component={}*/>
             <span style={styles.sidebarLink} onClick={viewTeamBoards}>
-            <p style={{color:"black"}} >Team Boards</p>
+            <p style={{color:"black",fontSize:"2vh"}} >Team Boards</p>
             </span>
           </Link>
           {teamToggle ? (
@@ -136,13 +136,13 @@ const SidebarContent = props => {
             ):(
               <span></span>
             )}
-            <hr style={{backgroundColor:"blue"}}></hr>
+            <div style={{height:0,width:"100%",border:"2px solid blue",borderBottomWidth:"2px",borderTopWidth:"0px",borderRightWidth:"0px",borderLeftWidth:"0px"}} ></div>
           <Link path="/" /*component={}*/>
             <span style={styles.sidebarLink}>
-            <p style={{color:"black"}} >Settings(In Progress)</p>
+            <p style={{color:"black",fontSize:"2vh"}} >Settings(In Progress)</p>
             </span>
           </Link>
-          <hr style={{backgroundColor:"blue"}}></hr>
+          <div style={{height:0,width:"100%",border:"2px solid blue",borderBottomWidth:"2px",borderTopWidth:"0px",borderRightWidth:"0px",borderLeftWidth:"0px"}} ></div>
           <Logout text={"Logout"}/>
       </div>
       <div>

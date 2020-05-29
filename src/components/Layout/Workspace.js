@@ -7,6 +7,7 @@ import {Container, Row, Col} from 'reactstrap';
 import DraggableList from '../Widgets/DraggableList';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import url from "../../links";
+//import { blue } from '@material-ui/core/colors';
 
 const Workspace = props => {
     const [isDraggable, setIsDraggable] = useState(false);
@@ -139,8 +140,9 @@ const Workspace = props => {
     }
 
     return (
-        <div>
-          <Header id = 'header2' title={props.boardname} creator={props.creator} board={board}/>
+        <div style={{height:"90vh "}} >
+          <Header  id = 'header2' title={props.boardname} creator={props.creator} board={board}/>
+          
           <DragDropContext onBeforeCapture={onBeforeCapture} onDragEnd={onDragEnd}>
             <div id="pad">
                   {loadingDone && displayLists()
