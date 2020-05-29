@@ -13,7 +13,7 @@ const Boards = require('../models/board.model');
 router.post("/addboard", auth, async (req, res) => {
     console.log("req rcvd");
     let username = req.user.id;
-    //Check if username has access to edit the file
+  //TODO: Check if username has access to edit the file
     let creator = req.body.creator;
     let boardname = req.body.boardname;
     let board_list = req.body.board_list;
