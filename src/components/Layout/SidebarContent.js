@@ -9,8 +9,9 @@ import url from "../../links";
 
 const styles = {
   sidebar: {
-    width: 256,
-    height: "100%"
+    width:500,
+    height: "90vh",
+    marginTop:"35%"
   },
   sidebarLink: {
     display: "block",
@@ -25,7 +26,9 @@ const styles = {
   },
   content: {
     padding: "16px",
-    height: "100%",
+    height: "92.5vh",
+    width:"15vw",
+    marginTop:"7vh",
     backgroundColor: "white"
   }
 };
@@ -104,16 +107,17 @@ const SidebarContent = props => {
   }
 
   return (
-    <MaterialTitlePanel title="Menu" style={style}>
-      <div style={styles.content}>
+    <div>
+      <div style={styles.content} >
           <Link path="/" /*component={}*/>
             <span style={styles.sidebarLink}>
-              Profile(In Progress)
+              <p style={{color:"black"}} >Profile(In Progress)</p>
             </span>
           </Link>
+          <hr style={{backgroundColor:"blue"}}></hr>
           <Link path = '/' /*component={}*/> 
             <span style={styles.sidebarLink} onClick={viewPersonalBoards}>
-              Personal Boards
+            <p style={{color:"black"}} >Personal Boards</p>
             </span>
           </Link>
           {personalToggle ? (
@@ -121,9 +125,10 @@ const SidebarContent = props => {
             ):(
               <span></span>
             )}
+            <hr style={{backgroundColor:"blue"}}></hr>
           <Link exact path="/" /*component={}*/>
             <span style={styles.sidebarLink} onClick={viewTeamBoards}>
-              Team Boards
+            <p style={{color:"black"}} >Team Boards</p>
             </span>
           </Link>
           {teamToggle ? (
@@ -131,13 +136,16 @@ const SidebarContent = props => {
             ):(
               <span></span>
             )}
+            <hr style={{backgroundColor:"blue"}}></hr>
           <Link path="/" /*component={}*/>
             <span style={styles.sidebarLink}>
-              Settings(In Progress)
+            <p style={{color:"black"}} >Settings(In Progress)</p>
             </span>
           </Link>
+          <hr style={{backgroundColor:"blue"}}></hr>
           <Logout text={"Logout"}/>
       </div>
+      <div>
       <Modal isOpen={modal} toggle={toggle} className={className}>
         <Form>
           <ModalHeader toggle={toggle}>Add List</ModalHeader>
@@ -164,7 +172,8 @@ const SidebarContent = props => {
           </ModalFooter>
         </Form>
       </Modal>
-    </MaterialTitlePanel>
+      </div>
+    </div>
   );
 };
 
