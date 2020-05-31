@@ -93,18 +93,36 @@ const DraggableList = props => {
 
         /* Iterate through all lists of the board to find the list
         *  to be modified. */
+       console.log("add Card fun")
+       console.log(props.board.list);
         for(var i = 0; i < props.board.list.length; i++) {
             if(props.board.list[i].title == props.title) {
                 prev_list = props.board.list[i];
                 break;
             }
         }
+        
+
         if(prev_list.length == 0) {
             console.log("List not found.");
             return;
         }
 
         /* Add the new card to the cards of the list. */
+        console.log(prev_list.cards);
+        console.log(new_card.title);
+        var check = -1;
+        for(var i = 0;i<prev_list.cards.length;i++){
+          if(prev_list.cards[i].title == new_card.title){
+            check = i;
+            break;
+          }
+        }
+        console.log("chech in Addcard: ",check);
+        if(check != -1){
+          alert("card already exists");
+          return;
+        }
         prev_cards = prev_list.cards;
         prev_cards.push(new_card);
 

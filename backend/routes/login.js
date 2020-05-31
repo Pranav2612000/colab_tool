@@ -13,8 +13,10 @@ const User = require('../models/user.model');
 router.post('/auth', async (req, res) => {
     try {
       console.log(req.body);
+      console.log("test in login");
       const username = req.body.username;
       const pass = req.body.password;
+      
       User.findOne({ username: username }, async function(err, user) {
         if (err) {
           return res.status(400).json({ err: 'Could not find user in database ' });
