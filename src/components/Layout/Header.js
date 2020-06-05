@@ -17,6 +17,18 @@ const Header = (props) => {
     if(board_list == undefined) {
       board_list = [];
     }
+    var check = -1;
+    for(let i=0;i<board_list.length;i++){
+        if(board_list[i].title == newListName){
+          check = i;
+          break;
+        }
+    }
+    console.log("check in List:" + check);
+    if(check != -1){
+        alert("List already exists!");
+        return;
+    }
     board_list.push({
       cards: [],
       pos: { X: 200, Y: 200},
