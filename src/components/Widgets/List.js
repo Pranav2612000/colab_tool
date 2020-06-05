@@ -36,7 +36,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   left: 0,
   position: "relative",
   // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
+  background: isDragging ? "lightgreen" : "white",
 
   // styles we need to apply on draggables
   ...draggableStyle
@@ -67,7 +67,7 @@ class App extends Component {
   }
   getListStyle(isDraggingOver) {
           return {
-                background: isDraggingOver ? "lightblue" : "lightgrey",
+                background: isDraggingOver ? "white" : "white",
                 border: "solid 2px #092672",
                 "border-radius": 10,
                 padding: grid,
