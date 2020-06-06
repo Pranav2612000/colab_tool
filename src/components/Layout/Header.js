@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {Spinner} from 'react-bootstrap';
 import {Container, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label} from 'reactstrap';
+import { withRouter } from "react-router-dom";
 import {
   Navbar,
   Nav,
@@ -28,6 +29,7 @@ const Header = (props) => {
       boardname: props.title,
       board_list: board_list
     };
+    var history = props.history;
     await axios.post(url + "board/deleteboard/",reqData, {
       headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
       body: reqData
@@ -37,7 +39,7 @@ const Header = (props) => {
       if(res.status == 200) {
         setLoading(false);
         console.log("success");
-        document.location="/home";
+        history.push("/home");
       } else {
         setLoading(false);
         console.log("Something went wrong");
@@ -155,4 +157,4 @@ const Header = (props) => {
     );
 }
 
-export default Header;
+export default withRouter(Header);
