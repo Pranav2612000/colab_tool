@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Redirect, Route, Switch, Link } from 'react-router-dom';
-import { Container, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label, InputGroup } from 'reactstrap';
+import { Container, ModalFooter, Modal, ModalBody, Alert , ModalHeader, Form, FormGroup, Input, Button, Label, InputGroup } from 'reactstrap';
 import axios from 'axios';
 import PropTypes from "prop-types";
 import MaterialTitlePanel from "./MaterialTitlePanel";
 import Logout from "../Widgets/Logout";
 import url from "../../links";
+import {Spinner} from 'react-bootstrap'
 
 const styles = {
   sidebar: {
@@ -34,7 +35,8 @@ const styles = {
 };
 
 const SidebarContent = props => {
-  const { className } = props;
+  const {className} = props;
+  const [loading,setLoading]=useState(false);
   const [personalBoardsList, setPersonalBoardsList] = useState([]);
   const [teamBoardsList, setTeamBoardsList] = useState([]);
   const [personalToggle, setPersonalToggle] = useState(false);
@@ -81,6 +83,7 @@ const SidebarContent = props => {
     let color = selectedcolor;
     console.log(color);
     console.log(board_name);
+    setLoading(true);
     var reqData = {
       boardname: board_name,
       boardcolor: color
@@ -89,18 +92,21 @@ const SidebarContent = props => {
       headers: { 'colab-tool-token': localStorage.getItem("colab-tool-token") },
       body: reqData
     })
-      .then(res => {
-        console.log(res);
-        if (res.status == 200) {
-          console.log("success");
-          window.location.reload();
-        } else {
-          console.log("Something went wrong");
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    .then(res => {
+      console.log(res);
+      if(res.status == 200) {
+        setLoading(false)
+        console.log("success");
+        window.location.reload();
+      } else {
+        setLoading(false);
+        Alert("Something went wrong");
+      }
+    })
+    .catch(err => {
+      setLoading(false);
+      Alert("Something went wrong");
+    })
   }
   function viewPersonalBoards() {
     setPersonalToggle(!personalToggle);

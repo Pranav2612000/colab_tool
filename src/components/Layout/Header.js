@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import {Spinner} from 'react-bootstrap';
 import {Container, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label} from 'reactstrap';
 import {
   Navbar,
@@ -9,10 +10,12 @@ import url from '../../links';
 const Header = (props) => {
   const {className} = props;
   const [modal, setModal] = useState(false);
+  const [loading,setLoading]= useState(false);
   const [newListName, setNewListName] = useState("");
   const toggle = () => setModal(!modal);
   const addList = async () => {
     console.log(props.board);
+    setLoading(true);
     let board_list = props.board.list;
     let boardcolor = props.board.boardcolor;
     if(board_list == undefined) {
@@ -49,13 +52,16 @@ const Header = (props) => {
     .then(res => {
       console.log(res);
       if(res.status == 200) {
+        setLoading(false);
         console.log("success");
         window.location.reload();
       } else {
+        setLoading(false);
         console.log("Something went wrong");
       }
     })
     .catch(err => {
+      setLoading(false);
       console.log(err);
     })
     console.log(newListName);
@@ -94,7 +100,11 @@ const Header = (props) => {
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={addList}>
-              Confirm
+            {loading?(
+            <Spinner animation="border" />
+        ) : (
+            <span>Confirm</span>
+        )}
             </Button>{' '}
             <Button color="secondary" onClick={toggle}>
               Cancel

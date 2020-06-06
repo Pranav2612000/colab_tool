@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: "auto",
-    marginTop:"10vh",
+    marginTop:"10%",
     backgroundColor: "blue",
   },
   form: {
@@ -42,15 +42,13 @@ const useStyles = makeStyles((theme) => ({
 export default function App() {
   const classes = useStyles();
   return (
-    <div style={{height:"100vh",width:"100%",display:"flex",flexDirection:"row"}} >
-    <div style={{height:"100vh",width:"60%"}} >
-      <img src={logo} style={{height:"60vh",width:"50%",marginTop:"15vh"}} ></img>
+    <div style={{height:"100%",width:"100%",display:"flex",flexDirection:"row"}} >
+    <div style={{height:"100%",width:"60%"}} >
+      <img src={logo} style={{height:"60%",width:"50%",marginTop:"20%"}} ></img>
     </div>
-    <div style={{height:"100vh",width:"40%"}} >
-    <Container component="main" maxWidth="xs" >
+    <div style={{height:"100%",width:"40%"}} >
       <CssBaseline />
-      <div className={classes.paper}>
-      <Card style={{width:"30vw",height:"60vh",marginTop:"12vh"}} >
+      <Card style={{width:"70%",height:"70%",marginTop:"20%",marginLeft:"15%"}} >
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -58,13 +56,11 @@ export default function App() {
           Sign in
         </Typography>
                   <LoginForm />
-                  <div style={{marginTop:"2vh"}} >
-              <Link to="/signup" style={{marginTop:"2vh"}} >Sign me Up!</Link>
+                  <div style={{marginTop:"2%"}} >
+              <Link to="/signup" style={{marginTop:"2%"}} >Sign me Up!</Link>
                 </div>
               </Card>
-              </div>
         
-      </Container>
     </div>
     </div>
   );
