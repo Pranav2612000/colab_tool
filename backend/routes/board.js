@@ -11,7 +11,6 @@ const auth = require('../auth');
 
 const UserBoards = require('../models/userboard.model');
 const Boards = require('../models/board.model');
-const UserBoards = require('../models/userboard.model');
 router.post("/addboard", auth, async (req, res) => {
     console.log("req rcvd");
     let username = req.user.id;
@@ -76,6 +75,7 @@ router.post("/getboarddata", auth, async (req, res) => {
         }
     });
 })
+
 router.post("/deleteboard", auth, async (req, res) => {
     let username = req.user.id;
     //Check if username has access to edit the file
@@ -113,7 +113,6 @@ router.post("/deleteboard", auth, async (req, res) => {
         if(err) return console.log(err);
         console.log("saved new personalBoard");
     });
-    
     //Delete the board from board table.
   Boards.deleteOne({ boardname: boardname}, function (err) {
       if (err) {
