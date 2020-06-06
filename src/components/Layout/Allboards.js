@@ -66,7 +66,7 @@ class App extends React.Component {
   }*/
 
   componentDidMount(){
-    await axios.post(url + "board/allboarddata/",reqData, {
+    await axios.post(url + "board/allboarddata/", {
         headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")}
       })
       .then(res => {
