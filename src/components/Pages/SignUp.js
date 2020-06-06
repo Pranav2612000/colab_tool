@@ -50,7 +50,7 @@ export default function App() {
     <Container component="main" maxWidth="xs" >
       <CssBaseline />
       <div className={classes.paper}>
-      <Card style={{width:"30vw",height:"70vh",marginTop:"7vh"}} >
+        <Card style={{width:"30vw",height:"70vh",marginTop:"7vh",'overflow-y': "scroll",}} >
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
