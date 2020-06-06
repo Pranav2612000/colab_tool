@@ -48,7 +48,7 @@ export default function App() {
     </div>
     <div style={{height:"100%",width:"40%"}} >
       <CssBaseline />
-      <Card style={{width:"70%",height:"60%",marginTop:"25%",marginLeft:"15%"}} >
+      <Card style={{width:"70%",height:"70%",marginTop:"20%",marginLeft:"15%"}} >
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>

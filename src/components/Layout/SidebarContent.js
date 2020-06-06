@@ -1,11 +1,12 @@
 import React,{useState, useEffect} from "react";
 import { BrowserRouter, Redirect, Route, Switch , Link} from 'react-router-dom';
-import {Container, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label} from 'reactstrap';
+import {Container, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label, Alert} from 'reactstrap';
 import axios from 'axios';
 import PropTypes from "prop-types";
 import MaterialTitlePanel from "./MaterialTitlePanel";
 import Logout from "../Widgets/Logout";
 import url from "../../links";
+import {Spinner} from 'react-bootstrap'
 
 const styles = {
   sidebar: {
@@ -35,6 +36,7 @@ const styles = {
 
 const SidebarContent = props => {
   const {className} = props;
+  const [loading,setLoading]=useState(false);
   const [personalBoardsList, setPersonalBoardsList] = useState([]);
   const [teamBoardsList, setTeamBoardsList] = useState([]);
   const [personalToggle, setPersonalToggle] = useState(false);
@@ -78,6 +80,7 @@ const SidebarContent = props => {
   async function addBoard() {
     let board_name = newBoardName;
     console.log(board_name);
+    setLoading(true);
     var reqData = {
       boardname: board_name,
     };
@@ -88,14 +91,17 @@ const SidebarContent = props => {
     .then(res => {
       console.log(res);
       if(res.status == 200) {
+        setLoading(false)
         console.log("success");
         window.location.reload();
       } else {
-        console.log("Something went wrong");
+        setLoading(false);
+        Alert("Something went wrong");
       }
     })
     .catch(err => {
-      console.log(err);
+      setLoading(false);
+      Alert("Something went wrong");
     })
   }
   function viewPersonalBoards() {
@@ -164,7 +170,11 @@ const SidebarContent = props => {
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={addBoard}>
-              Confirm
+            {loading?(
+            <Spinner animation="border" />
+        ) : (
+            <span>Confirm</span>
+        )}
             </Button>{' '}
             <Button color="secondary" onClick={toggle}>
               Cancel
