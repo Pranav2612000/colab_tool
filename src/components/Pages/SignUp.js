@@ -57,6 +57,7 @@ export default function App() {
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
+          <Link to='/login'><span style={{'font-size': "70%"}}>Already registered? Login</span></Link>
                   <SignUpForm />
               </Card>
               </div>
