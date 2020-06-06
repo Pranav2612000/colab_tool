@@ -84,16 +84,36 @@ router.post("/deleteboard", auth, async (req, res) => {
     }
     let boardname = req.body.boardname;
 
-
+    console.log(req.body);
+    console.log(username);
     // Check if the user has access to the board - iterate through personal boards of the user
     // and delete the board if found.
-    const userBoards = await UserBoards.find({username: username }).exec();
-    if(userBoards.length == 0) {
-      res.status(400).json({err: "No boards to delete"});
+    const userBoards = await UserBoards.findOne({username: username }).exec();
+    console.log(userBoards);
+    let personalBoards = userBoards.personalBoards;
+    let index = -1;
+    console.log(personalBoards);
+    if(personalBoards == undefined){
+        res.status(400).json({err: "Error in board"});
+        return;
     }
-
-    UserBoards.updateOne( {username: username}, { 
-            $pull: {personalBoards: req.body.boardname} } );
+    personalBoards.forEach((val, ind) => {
+        if(val === boardname) {
+            index = ind;
+            return;
+        }
+    })
+    if(index != -1) {
+        personalBoards.splice(index, 1);
+    }
+    userBoards.personalBoards = personalBoards;
+    console.log(userBoards);
+    userBoards.markModified(personalBoards);
+    userBoards.save(function(err,doc){
+        if(err) return console.log(err);
+        console.log("saved new personalBoard");
+    });
+    
     //Delete the board from board table.
   Boards.deleteOne({ boardname: boardname}, function (err) {
       if (err) {
