@@ -14,6 +14,10 @@ const boards = new Schema({
       type: [String],
       required: true,
   },
+  boardcolor:{
+      type: String,
+      required:true,
+  },
   list: Schema.Types.Mixed
   /*list [
             {
