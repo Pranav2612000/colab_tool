@@ -6,6 +6,7 @@ import {Spinner} from 'react-bootstrap';
 import ReactDOM from "react-dom";
 import {Container, Row, Col, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label} from 'reactstrap';
 import url from '../../links';
+import { ProgressBar } from 'react-bootstrap';
 
 const DraggableList = props => {
     const {className} = props;
@@ -132,7 +133,8 @@ const DraggableList = props => {
         let reqData = {
             users: props.board.usernames,
             boardname: props.board.boardname,
-            board_list: props.board.list 
+            board_list: props.board.list,
+            boardcolor: props.board.boardcolor, 
         };
         console.log(reqData);
 
@@ -229,7 +231,8 @@ const DraggableList = props => {
             let reqData = {
                 users: props.board.usernames,
                 boardname: props.board.boardname,
-                board_list: props.board.list 
+                board_list: props.board.list, 
+                boardcolor: props.board.boardcolor,
             };
             console.log(reqData);
             axios.post(url + "board/addboard/",reqData, {

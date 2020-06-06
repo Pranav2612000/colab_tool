@@ -67,7 +67,7 @@ class App extends Component {
   }
   getListStyle(isDraggingOver) {
           return {
-                background: isDraggingOver ? "white" : "white",
+                background: isDraggingOver ? this.props.board.boardcolor : this.props.board.boardcolor ,
                 border: "solid 2px #092672",
                 "border-radius": 10,
                 padding: grid,
@@ -118,7 +118,7 @@ class App extends Component {
               ref={provided.innerRef}
               style={this.getListStyle(snapshot.isDraggingOver)}
             >
-              <ListBar title={this.props.title} moveCallback={this.toggleDragging} addCardCallback={this.props.addCardCallback}/>
+              <ListBar title={this.props.title} moveCallback={this.toggleDragging} color={this.props.board.boardcolor} addCardCallback={this.props.addCardCallback}/>
             {/*<div>{this.props.title}</div>*/}
             {/*<button onClick={this.toggleDragging}>Move</button>
             <button onClick={this.addCard}>AddCard</button>*/}

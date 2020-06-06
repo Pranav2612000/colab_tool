@@ -23,6 +23,7 @@ router.post('/addpersonalboards', auth, async (req, res) => {
     console.log("addpersonalboardsrcvd");
     let username = req.user.id;
     let boardname = req.body.boardname;
+    let boardcolor = req.body.boardcolor;
     try {
         const userBoards = await UserBoards.find({ username: username }).exec();
         if (userBoards.length == 0) {
@@ -67,5 +68,30 @@ router.post('/addpersonalboards', auth, async (req, res) => {
         res.status(400).json({err});
     }
     */
+
+   var reqData = {
+    creator: username,
+    boardname: boardname,
+    boardcolor: boardcolor,
+    creator: username,
+    board_list: [],
+    users: [username],
+  };
+  console.log("Token :  " + req.header('colab-tool-token'));
+  await axios.post("http://localhost:5000/api/board/addboard/",reqData, {
+    headers: {'colab-tool-token': req.header('colab-tool-token')},
+    body: reqData
+  })
+  .then(res => {
+    console.log(res);
+    if(res.status == 200) {
+      console.log("success");
+    } else {
+      console.log("Something went wrong");
+    }
+  })
+  .catch(err => {
+    console.log(err);
+  })
 });
 module.exports = router;

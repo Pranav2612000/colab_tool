@@ -10,6 +10,7 @@ var path = require('path');
 const auth = require('../auth');
 
 const Boards = require('../models/board.model');
+const UserBoards = require('../models/userboard.model');
 router.post("/addboard", auth, async (req, res) => {
     console.log("req rcvd");
     let username = req.user.id;
@@ -18,8 +19,9 @@ router.post("/addboard", auth, async (req, res) => {
     let boardname = req.body.boardname;
     let board_list = req.body.board_list;
     let users = req.body.users;
+    let color = req.body.boardcolor;
     try {
-        let doc = await Boards.findOneAndUpdate({ boardname: boardname},{usernames: users, list: board_list}, {
+        let doc = await Boards.findOneAndUpdate({ boardname: boardname},{ boardcolor:color, creator:creator , usernames: users, list: board_list}, {
             new: true,
             upsert: true // Make this update into an upsert
         });
@@ -73,7 +75,6 @@ router.post("/getboarddata", auth, async (req, res) => {
         }
     });
 })
-
 router.post("/deleteboard", auth, async (req, res) => {
     let username = req.user.id;
     //Check if username has access to edit the file
@@ -82,19 +83,44 @@ router.post("/deleteboard", auth, async (req, res) => {
         creator = username;
     }
     let boardname = req.body.boardname;
-    console.log(boardname);
-    console.log(creator);
-    await Boards.remove({ boardname: boardname}, function(err) {
-        if(err) {
-            console.log(err);
-            res.status(400).json({err});
-            return;
-        }else {
-            console.log("board deleted");
-            res.status(200);
+
+    console.log(req.body);
+    console.log(username);
+    // Check if the user has access to the board - iterate through personal boards of the user
+    // and delete the board if found.
+    const userBoards = await UserBoards.findOne({username: username }).exec();
+    console.log(userBoards);
+    let personalBoards = userBoards.personalBoards;
+    let index = -1;
+    console.log(personalBoards);
+    if(personalBoards == undefined){
+        res.status(400).json({err: "Error in board"});
+        return;
+    }
+    personalBoards.forEach((val, ind) => {
+        if(val === boardname) {
+            index = ind;
             return;
         }
+    })
+    if(index != -1) {
+        personalBoards.splice(index, 1);
+    }
+    userBoards.personalBoards = personalBoards;
+    console.log(userBoards);
+    userBoards.markModified(personalBoards);
+    userBoards.save(function(err,doc){
+        if(err) return console.log(err);
+        console.log("saved new personalBoard");
+    });
+    
+    //Delete the board from board table.
+  Boards.deleteOne({ boardname: boardname}, function (err) {
+      if (err) {
+        res.status(400).json({err: "Error deleting board"});
+      } else {
+        res.status(200).json({msg: "Removed from userarray."});
+      }
     });
 })
-
 module.exports = router;
