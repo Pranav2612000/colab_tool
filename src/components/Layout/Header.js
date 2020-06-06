@@ -13,6 +13,42 @@ const Header = (props) => {
   const [loading,setLoading]= useState(false);
   const [newListName, setNewListName] = useState("");
   const toggle = () => setModal(!modal);
+  const delboard= async () => {
+    console.log(props.board["boardname"]);
+    console.log(props.board.list);
+    console.log(props.board);
+
+    let board_list = props.board.list;
+    if(board_list == undefined) {
+      board_list = [];
+    }
+
+    var reqData = {
+      creator: props.creator,
+      boardname: props.title,
+      board_list: board_list
+    };
+    await axios.post(url + "board/deleteboard/",reqData, {
+      headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
+      body: reqData
+    })
+    .then(res => {
+      console.log(res);
+      if(res.status == 200) {
+        setLoading(false);
+        console.log("success");
+        document.location="/home";
+      } else {
+        setLoading(false);
+        console.log("Something went wrong");
+      }
+    })
+    .catch(err => {
+      setLoading(false);
+      console.log(err);
+    })
+
+  }
   const addList = async () => {
     console.log(props.board);
     setLoading(true);
@@ -75,6 +111,9 @@ const Header = (props) => {
               <Nav.Link style={{color:"#5340c9",fontSize:"2vh"}} onClick={toggle}>Add List</Nav.Link>
               <Nav.Link style={{color:"#5340c9",fontSize:"2vh"}} >
                   Add Colloborators
+              </Nav.Link>
+              <Nav.Link style={{color:"#5340c9",fontSize:"2vh"}} onClick={delboard}  >
+                  Delete board
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

@@ -73,4 +73,28 @@ router.post("/getboarddata", auth, async (req, res) => {
         }
     });
 })
+
+router.post("/deleteboard", auth, async (req, res) => {
+    let username = req.user.id;
+    //Check if username has access to edit the file
+    let creator = req.body.creator;
+    if(creator == '') {
+        creator = username;
+    }
+    let boardname = req.body.boardname;
+    console.log(boardname);
+    console.log(creator);
+    await Boards.remove({ boardname: boardname}, function(err) {
+        if(err) {
+            console.log(err);
+            res.status(400).json({err});
+            return;
+        }else {
+            console.log("board deleted");
+            res.status(200);
+            return;
+        }
+    });
+})
+
 module.exports = router;
