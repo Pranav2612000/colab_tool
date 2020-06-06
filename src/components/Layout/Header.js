@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {Spinner} from 'react-bootstrap';
 import {Container, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label} from 'reactstrap';
+import { withRouter } from "react-router-dom";
 import {
   Navbar,
   Nav,
@@ -13,6 +14,43 @@ const Header = (props) => {
   const [loading,setLoading]= useState(false);
   const [newListName, setNewListName] = useState("");
   const toggle = () => setModal(!modal);
+  const delboard= async () => {
+    console.log(props.board["boardname"]);
+    console.log(props.board.list);
+    console.log(props.board);
+
+    let board_list = props.board.list;
+    if(board_list == undefined) {
+      board_list = [];
+    }
+
+    var reqData = {
+      creator: props.creator,
+      boardname: props.title,
+      board_list: board_list
+    };
+    var history = props.history;
+    await axios.post(url + "board/deleteboard/",reqData, {
+      headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
+      body: reqData
+    })
+    .then(res => {
+      console.log(res);
+      if(res.status == 200) {
+        setLoading(false);
+        console.log("success");
+        history.push("/home");
+      } else {
+        setLoading(false);
+        console.log("Something went wrong");
+      }
+    })
+    .catch(err => {
+      setLoading(false);
+      console.log(err);
+    })
+
+  }
   const addList = async () => {
     console.log(props.board);
     setLoading(true);
@@ -78,6 +116,9 @@ const Header = (props) => {
               <Nav.Link style={{color:"#5340c9",fontSize:"2vh"}} >
                   Add Colloborators
               </Nav.Link>
+              <Nav.Link style={{color:"#5340c9",fontSize:"2vh"}} onClick={delboard}  >
+                  Delete board
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -116,4 +157,4 @@ const Header = (props) => {
     );
 }
 
-export default Header;
+export default withRouter(Header);

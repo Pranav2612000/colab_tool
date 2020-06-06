@@ -11,6 +11,7 @@ const auth = require('../auth');
 
 const UserBoards = require('../models/userboard.model');
 const Boards = require('../models/board.model');
+const UserBoards = require('../models/userboard.model');
 router.post("/addboard", auth, async (req, res) => {
     console.log("req rcvd");
     let username = req.user.id;
@@ -75,6 +76,14 @@ router.post("/getboarddata", auth, async (req, res) => {
         }
     });
 })
+router.post("/deleteboard", auth, async (req, res) => {
+    let username = req.user.id;
+    //Check if username has access to edit the file
+    let creator = req.body.creator;
+    if(creator == '') {
+        creator = username;
+    }
+    let boardname = req.body.boardname;
 
 router.post("/allboarddata", auth, async (req, res) => {
     let username = req.user.id;
