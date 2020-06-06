@@ -107,7 +107,8 @@ const Workspace = props => {
       let reqData = { 
         users: board.usernames,
         boardname: board.boardname,
-        board_list: board.list 
+        board_list: board.list,
+        boardcolor: board.boardcolor,  
       };
       axios.post(url + "board/addboard/",reqData, {
         headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},

@@ -1,6 +1,6 @@
-import React,{useState, useEffect} from "react";
-import { BrowserRouter, Redirect, Route, Switch , Link} from 'react-router-dom';
-import {Container, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label} from 'reactstrap';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Redirect, Route, Switch, Link } from 'react-router-dom';
+import { Container, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label, InputGroup } from 'reactstrap';
 import axios from 'axios';
 import PropTypes from "prop-types";
 import MaterialTitlePanel from "./MaterialTitlePanel";
@@ -9,9 +9,9 @@ import url from "../../links";
 
 const styles = {
   sidebar: {
-    width:500,
+    width: 500,
     height: "90vh",
-    marginTop:"35%"
+    marginTop: "35%"
   },
   sidebarLink: {
     display: "block",
@@ -27,19 +27,20 @@ const styles = {
   content: {
     padding: "16px",
     height: "92.5vh",
-    width:"15vw",
-    marginTop:"7vh",
+    width: "15vw",
+    marginTop: "7vh",
     backgroundColor: "white"
   }
 };
 
 const SidebarContent = props => {
-  const {className} = props;
+  const { className } = props;
   const [personalBoardsList, setPersonalBoardsList] = useState([]);
   const [teamBoardsList, setTeamBoardsList] = useState([]);
   const [personalToggle, setPersonalToggle] = useState(false);
   const [teamToggle, setTeamToggle] = useState(false);
   const [newBoardName, setNewBoardName] = useState("");
+  const [selectedcolor, setColor] = useState("");
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const style = props.style
@@ -49,17 +50,17 @@ const SidebarContent = props => {
   useEffect(() => {
     const fetchData = async () => {
       await axios.get(url + "user/getboards/", {
-        headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")}
+        headers: { 'colab-tool-token': localStorage.getItem("colab-tool-token") }
       })
-      .then(res => {
-        console.log(res);
-        console.log(res.data.userBoards[0].personalBoards);
-        setPersonalBoardsList(res.data.userBoards[0].personalBoards)
-        setTeamBoardsList(res.data.userBoards[0].teamBoards);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        .then(res => {
+          console.log(res);
+          console.log(res.data.userBoards[0].personalBoards);
+          setPersonalBoardsList(res.data.userBoards[0].personalBoards)
+          setTeamBoardsList(res.data.userBoards[0].teamBoards);
+        })
+        .catch(err => {
+          console.log(err);
+        })
     };
     fetchData();
   }, []);
@@ -74,29 +75,32 @@ const SidebarContent = props => {
     <Link onClick={toggle}>Add New Board</Link>
   )
   console.log(personalLinks);
-  
+
   async function addBoard() {
     let board_name = newBoardName;
+    let color = selectedcolor;
+    console.log(color);
     console.log(board_name);
     var reqData = {
       boardname: board_name,
+      boardcolor: color
     };
-    await axios.post(url + "user/addpersonalboards/",reqData, {
-      headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
+    await axios.post(url + "user/addpersonalboards/", reqData, {
+      headers: { 'colab-tool-token': localStorage.getItem("colab-tool-token") },
       body: reqData
     })
-    .then(res => {
-      console.log(res);
-      if(res.status == 200) {
-        console.log("success");
-        window.location.reload();
-      } else {
-        console.log("Something went wrong");
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      .then(res => {
+        console.log(res);
+        if (res.status == 200) {
+          console.log("success");
+          window.location.reload();
+        } else {
+          console.log("Something went wrong");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
   function viewPersonalBoards() {
     setPersonalToggle(!personalToggle);
@@ -109,69 +113,110 @@ const SidebarContent = props => {
   return (
     <div>
       <div style={styles.content} >
-          <Link path="/" /*component={}*/>
-            <span style={styles.sidebarLink}>
-              <p style={{color:"black",fontSize:"2vh"}} >Profile(In Progress)</p>
-            </span>
-          </Link>
-          <div style={{height:0,width:"100%",border:"2px solid blue",borderBottomWidth:"2px",borderTopWidth:"0px",borderRightWidth:"0px",borderLeftWidth:"0px"}} ></div>
-          <Link path = '/' /*component={}*/> 
-            <span style={styles.sidebarLink} onClick={viewPersonalBoards}>
-            <p style={{color:"black",fontSize:"2vh"}} >Personal Boards</p>
-            </span>
-          </Link>
-          {personalToggle ? (
-              <span>{personalLinks}</span>
-            ):(
-              <span></span>
-            )}
-          <div style={{height:0,width:"100%",border:"2px solid blue",borderBottomWidth:"2px",borderTopWidth:"0px",borderRightWidth:"0px",borderLeftWidth:"0px"}} ></div>
-          <Link exact path="/" /*component={}*/>
-            <span style={styles.sidebarLink} onClick={viewTeamBoards}>
-            <p style={{color:"black",fontSize:"2vh"}} >Team Boards</p>
-            </span>
-          </Link>
-          {teamToggle ? (
-              <h4>In Progress</h4>
-            ):(
-              <span></span>
-            )}
-            <div style={{height:0,width:"100%",border:"2px solid blue",borderBottomWidth:"2px",borderTopWidth:"0px",borderRightWidth:"0px",borderLeftWidth:"0px"}} ></div>
-          <Link path="/" /*component={}*/>
-            <span style={styles.sidebarLink}>
-            <p style={{color:"black",fontSize:"2vh"}} >Settings(In Progress)</p>
-            </span>
-          </Link>
-          <div style={{height:0,width:"100%",border:"2px solid blue",borderBottomWidth:"2px",borderTopWidth:"0px",borderRightWidth:"0px",borderLeftWidth:"0px"}} ></div>
-          <Logout text={"Logout"}/>
+        <Link path="/" /*component={}*/>
+          <span style={styles.sidebarLink}>
+            <p style={{ color: "black", fontSize: "2vh" }} >Profile(In Progress)</p>
+          </span>
+        </Link>
+        <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
+        <Link path='/' /*component={}*/>
+          <span style={styles.sidebarLink} onClick={viewPersonalBoards}>
+            <p style={{ color: "black", fontSize: "2vh" }} >Personal Boards</p>
+          </span>
+        </Link>
+        {personalToggle ? (
+          <span>{personalLinks}</span>
+        ) : (
+            <span></span>
+          )}
+        <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
+        <Link exact path="/" /*component={}*/>
+          <span style={styles.sidebarLink} onClick={viewTeamBoards}>
+            <p style={{ color: "black", fontSize: "2vh" }} >Team Boards</p>
+          </span>
+        </Link>
+        {teamToggle ? (
+          <h4>In Progress</h4>
+        ) : (
+            <span></span>
+          )}
+        <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
+        <Link path="/" /*component={}*/>
+          <span style={styles.sidebarLink}>
+            <p style={{ color: "black", fontSize: "2vh" }} >Settings(In Progress)</p>
+          </span>
+        </Link>
+        <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
+        <Logout text={"Logout"} />
       </div>
       <div>
-      <Modal isOpen={modal} toggle={toggle} className={className}>
-        <Form>
-          <ModalHeader toggle={toggle}>Add List</ModalHeader>
-          <ModalBody>
-            <FormGroup>
-              <Label for="boardname">New Board Name:</Label>
-              <Input
-                type="text"
-                name="board_name"
-                id="board_name"
-                placeholder="Enter new board name"
-                value={newBoardName}
-                onChange={e => setNewBoardName(e.target.value)}
-              />
-            </FormGroup>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={addBoard}>
-              Confirm
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <Form>
+            <ModalHeader toggle={toggle}>Add Board</ModalHeader>
+            <ModalBody>
+              <FormGroup>
+                <Label for="boardname">New Board Name:</Label>
+                <Input
+                  type="text"
+                  name="board_name"
+                  id="board_name"
+                  placeholder="Enter new board name"
+                  value={newBoardName}
+                  onChange={e => setNewBoardName(e.target.value)}
+                />
+
+
+                <Label for="radio">Select color</Label>
+
+                <FormGroup check>
+                  <Label check>
+                    <Input type="radio" 
+                    name="color" 
+                    id="#FF0000"
+                    value={selectedcolor}
+                    placeholder="Red1"
+                    onChange={e => setColor(e.target.id)} 
+                    />{' '}
+                  <span style={{color:"red"}}>Red</span>
+                  </Label>
+                </FormGroup>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="radio" 
+                    name="color" 
+                    id="#00FF00"
+                    value={selectedcolor}
+                    placeholder="Green1"
+                    onChange={e => setColor(e.target.id)} 
+                    />
+                    <span style={{color:"green"}}>Green</span>
+                  </Label>
+                </FormGroup>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="radio" 
+                    name="color" 
+                    id="#0000FF"
+                    value={selectedcolor}
+                    placeholder="Green1"
+                    onChange={e => setColor(e.target.id)} 
+                    />
+                    <span style={{color:"blue"}}>Blue</span>
+                  </Label>
+                </FormGroup>
+
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={addBoard}>
+                Confirm
             </Button>{' '}
-            <Button color="secondary" onClick={toggle}>
-              Cancel
+              <Button color="secondary" onClick={toggle}>
+                Cancel
             </Button>
-          </ModalFooter>
-        </Form>
-      </Modal>
+            </ModalFooter>
+          </Form>
+        </Modal>
       </div>
     </div>
   );

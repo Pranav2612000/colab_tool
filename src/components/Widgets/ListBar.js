@@ -6,7 +6,7 @@ const Example = (props) => {
   const toggleNavbar = () => setCollapsed(!collapsed);
 
   return (
-    <Navbar style={{backgroundColor:"white"}} >
+    <Navbar style={{backgroundColor: props.color}} >
     <Navbar.Brand>{props.title}</Navbar.Brand>
     <Navbar.Toggle />
     <Navbar.Collapse className="justify-content-end">
