@@ -10,6 +10,7 @@ var path = require('path');
 const auth = require('../auth');
 
 const Boards = require('../models/board.model');
+const UserBoards = require('../models/userboard.model');
 router.post("/addboard", auth, async (req, res) => {
     console.log("req rcvd");
     let username = req.user.id;
@@ -71,6 +72,34 @@ router.post("/getboarddata", auth, async (req, res) => {
             res.status(200).json(board);
             return;
         }
+    });
+})
+router.post("/deleteboard", auth, async (req, res) => {
+    let username = req.user.id;
+    //Check if username has access to edit the file
+    let creator = req.body.creator;
+    if(creator == '') {
+        creator = username;
+    }
+    let boardname = req.body.boardname;
+
+
+    // Check if the user has access to the board - iterate through personal boards of the user
+    // and delete the board if found.
+    const userBoards = await UserBoards.find({username: username }).exec();
+    if(userBoards.length == 0) {
+      res.status(400).json({err: "No boards to delete"});
+    }
+
+    UserBoards.updateOne( {username: username}, { 
+            $pull: {personalBoards: req.body.boardname} } );
+    //Delete the board from board table.
+  Boards.deleteOne({ boardname: boardname}, function (err) {
+      if (err) {
+        res.status(400).json({err: "Error deleting board"});
+      } else {
+        res.status(200).json({msg: "Removed from userarray."});
+      }
     });
 })
 module.exports = router;
