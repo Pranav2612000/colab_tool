@@ -78,7 +78,7 @@ export default class LoginForm extends React.Component {
       }
     return (
       <AvForm
-        style={{marginTop:"2vh"}}
+        style={{marginTop:"3%"}}
         onValidSubmit={this.handleValidSubmit}
         onInvalidSubmit={this.handleInvalidSubmit}
       >
