@@ -177,7 +177,7 @@ const SidebarContent = props => {
                   <Label check>
                     <Input type="radio" 
                     name="color" 
-                    id="#FF0000"
+                    id="#f29891"
                     value={selectedcolor}
                     placeholder="Red1"
                     onChange={e => setColor(e.target.id)} 
@@ -189,7 +189,7 @@ const SidebarContent = props => {
                   <Label check>
                     <Input type="radio" 
                     name="color" 
-                    id="#00FF00"
+                    id="#66e861"
                     value={selectedcolor}
                     placeholder="Green1"
                     onChange={e => setColor(e.target.id)} 
@@ -201,7 +201,7 @@ const SidebarContent = props => {
                   <Label check>
                     <Input type="radio" 
                     name="color" 
-                    id="#0000FF"
+                    id="#5d8ae3"
                     value={selectedcolor}
                     placeholder="Green1"
                     onChange={e => setColor(e.target.id)} 
