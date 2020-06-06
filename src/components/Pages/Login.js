@@ -42,11 +42,11 @@ const useStyles = makeStyles((theme) => ({
 export default function App() {
   const classes = useStyles();
   return (
-    <div style={{height:"100vh",width:"100%",display:"flex",flexDirection:"row"}} >
-    <div style={{height:"100vh",width:"60%"}} >
+    <div style={{height:"100%",width:"100%",display:"flex",flexDirection:"row"}} >
+    <div style={{height:"100%",width:"60%"}} >
       <img src={logo} style={{height:"60%",width:"50%",marginTop:"20%"}} ></img>
     </div>
-    <div style={{height:"100vh",width:"40%"}} >
+    <div style={{height:"100%",width:"40%"}} >
       <CssBaseline />
       <Card style={{width:"70%",height:"60%",marginTop:"25%",marginLeft:"15%"}} >
         <Avatar className={classes.avatar}>
