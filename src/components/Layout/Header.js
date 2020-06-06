@@ -8,6 +8,7 @@ import {
   Nav,
 } from 'react-bootstrap';
 import url from '../../links';
+import './Header.css';
 const Header = (props) => {
   const {className} = props;
   const [modal, setModal] = useState(false);
@@ -106,18 +107,33 @@ const Header = (props) => {
     console.log(props.board);
   }
   return (
-      <span >
-        <Navbar style={{backgroundColor:"#c6c6f7",borderTopWidth:0,borderLeftWidth:0,borderRightWidth:0,borderBottomWidth:"2px"}} collapseOnSelect expand="lg" bg="white" variant="light">
-          <Navbar.Brand style={{color:"#5340c9",fontSize:"2.5vh",fontStyle:"bold",fontFamily:"Arial"}} >Task name:{props.title}</Navbar.Brand>
+    <span style={{'background-color':'red'}}>
+        <Navbar collapseOnSelect expand="lg" bg="red" variant="light">
+          <span style={{'font-size':'145%'}}>
+            <i class='fa fa-columns'></i>
+            
+            {'  ' + props.title}
+          </span>
+          <Navbar.Brand style={{color:"#5340c9",fontSize:"2.5vh",fontStyle:"bold",fontFamily:"Arial"}} >
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-            <Nav> 
-              <Nav.Link style={{color:"#5340c9",fontSize:"2vh"}} onClick={toggle}>Add List</Nav.Link>
-              <Nav.Link style={{color:"#5340c9",fontSize:"2vh"}} >
-                  Add Colloborators
+            <Nav style={{marginRight:'5%'}}> 
+              <Nav.Link style={{color:"#5340c9",fontSize:"145%", marginRight: '5%', marginLeft:'5%'}} onClick={toggle}>
+                <span title='Add List'>
+                  <i class='fa fa-calendar-plus'>
+                  </i>
+                </span>
               </Nav.Link>
-              <Nav.Link style={{color:"#5340c9",fontSize:"2vh"}} onClick={delboard}  >
-                  Delete board
+              <Nav.Link style={{color:"#5340c9",fontSize:"145%", marginRight: '5%', marginLeft:'5%'}} >
+                <span title="Add Colloborator">
+                  <i class='fa fa-user-plus'></i>
+                </span>
+              </Nav.Link>
+              <Nav.Link style={{color:"#5340c9",fontSize:"145%"}} onClick={delboard}  >
+                <span title='delete board'>
+                  <i class='fa fa-trash'></i>
+                </span>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

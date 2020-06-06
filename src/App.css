@@ -37,15 +37,59 @@
   }
 }
 
+/*
 body {
   background-color: rgb(205,195,240);
 }
+*/
+.bg-red {
+  background-color: #c6c6f7;
+}
 
 #pad {
-  background-color: #c6c6f7;
+  /*border: 2px red solid;*/
+  /*background-color: #c6c6f7;*/
   position: absolute;
   height: 86.5vh;
   width: 100%;
+	background-image: linear-gradient(transparent 2px, transparent 2px),
+                    linear-gradient(90deg, transparent 2px, transparent 2px),
+                    linear-gradient(rgba(150, 150, 150, .3) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(150, 150, 150, .3) 1px, transparent 1px);
+	background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+	background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+
+  /*
+  background:
+        linear-gradient(-90deg, rgba(0,0,0,.05) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+        linear-gradient(-90deg, rgba(0, 0, 0, .04) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
+        linear-gradient(transparent 3px, #f2f2f2 3px, #f2f2f2 78px, transparent 78px),
+        linear-gradient(-90deg, #aaa 1px, transparent 1px),
+        linear-gradient(-90deg, transparent 3px, #f2f2f2 3px, #f2f2f2 78px, transparent 78px),
+        linear-gradient(#aaa 1px, transparent 1px),
+        #f2f2f2;
+    background-size:
+        4px 4px,
+        4px 4px,
+        80px 80px,
+        80px 80px,
+        80px 80px,
+        80px 80px,
+        80px 80px,
+        80px 80px;
+        */
+  /*
+  background-color: #fff;
+  background-image: linear-gradient(rgba(244,244,250,.8) 1px,transparent 0),
+                    linear-gradient(#f4f4fa 1px,transparent 0),
+                    linear-gradient(90deg,rgba(244,244,250,.8) 1px,transparent 0),
+                    linear-gradient(90deg,#f4f4fa 1px,transparent 0),
+                    linear-gradient(transparent 3px,#fff 0,#fff 94px,transparent 0),
+                    linear-gradient(90deg,#f4f4fa 3px,transparent 0,transparent 94px,#f4f4fa 0);
+    background-size: 24px 24px,96px 96px,24px 24px,96px 96px,96px 96px,96px 96px;
+*/
 }
 #submit {
   background-color: limegreen;
