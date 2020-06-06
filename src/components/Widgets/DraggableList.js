@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react';
 import axios from 'axios';
 import Draggable , {DraggableCore} from 'react-draggable';
 import List from "../Widgets/List";
+import {Spinner} from 'react-bootstrap';
 import ReactDOM from "react-dom";
 import {Container, Row, Col, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label} from 'reactstrap';
 import url from '../../links';
@@ -18,6 +19,7 @@ const DraggableList = props => {
         x : props.x,
         y: props.y 
     });
+    const [loading,setLoading]=useState(false);
     const [trans,setTrans] = useState({
         x: 50,
         y: 50,
@@ -90,7 +92,7 @@ const DraggableList = props => {
             due_date: dueDate,
             attachement: null
         };
-
+        setLoading(true)
         /* Iterate through all lists of the board to find the list
         *  to be modified. */
        console.log("add Card fun")
@@ -140,6 +142,7 @@ const DraggableList = props => {
         })
         .then(res => {
           console.log(res);
+          setLoading(false)
           toggle();
         })
         .catch(err => {
@@ -335,7 +338,11 @@ const DraggableList = props => {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={addCard}>
-                        Confirm
+                        {loading?(
+            <Spinner animation="border" />
+        ) : (
+            <span>Confirm</span>
+        )}
                         </Button>{' '}
                         <Button color="secondary" onClick={toggle}>
                         Cancel
