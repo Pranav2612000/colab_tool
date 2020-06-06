@@ -17,6 +17,7 @@ const Header = (props) => {
     console.log(props.board);
     setLoading(true);
     let board_list = props.board.list;
+    let boardcolor = props.board.boardcolor;
     if(board_list == undefined) {
       board_list = [];
     }
@@ -41,7 +42,8 @@ const Header = (props) => {
     var reqData = {
       creator: props.creator,
       boardname: props.title,
-      board_list: board_list
+      board_list: board_list,
+      boardcolor : boardcolor,
     };
     await axios.post(url + "board/addboard/",reqData, {
       headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
@@ -93,6 +95,7 @@ const Header = (props) => {
                 value={newListName}
                 onChange={e => setNewListName(e.target.value)}
               />
+              
             </FormGroup>
           </ModalBody>
           <ModalFooter>

@@ -19,8 +19,9 @@ router.post("/addboard", auth, async (req, res) => {
     let boardname = req.body.boardname;
     let board_list = req.body.board_list;
     let users = req.body.users;
+    let color = req.body.boardcolor;
     try {
-        let doc = await Boards.findOneAndUpdate({ boardname: boardname},{usernames: users, list: board_list}, {
+        let doc = await Boards.findOneAndUpdate({ boardname: boardname},{ boardcolor:color, creator:creator , usernames: users, list: board_list}, {
             new: true,
             upsert: true // Make this update into an upsert
         });
