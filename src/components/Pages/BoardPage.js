@@ -21,6 +21,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import logo from '../../assets/images/header_logo.png';
 
 const styles = {
   contentHeaderMenuLink: {
@@ -175,18 +176,10 @@ class App extends React.Component {
           <IconButton edge="start" className={classes.menuButton} onClick={this.menuButtonClick} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <p style={{fontFamily:"Times New Roman",marginTop:"12px"}} >TASK MANAGEMENT SYSTEM</p>
-            <div style={{width:"65vw",marginLeft:"14vw"}} >
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                style={{marginLeft:"67vw"}}
-                onClick={this.handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+          <p style={{fontFamily:"Times New Roman", margin:'auto'}} >
+            <img src={logo} style={{height: '50px'}}/>
+          </p>
+            <div>
               <Menu
                 id="menu-appbar"
                 anchorEl={this.state.anchorEl}
