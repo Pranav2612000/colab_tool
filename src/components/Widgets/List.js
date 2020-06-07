@@ -120,7 +120,7 @@ class App extends Component {
               style={this.getListStyle(snapshot.isDraggingOver)}
             >
               <img src={pin1} style={{height:'50px', position:'absolute', top:'-30px', right:'-30px', 'z-index':'5'}}/> 
-              <ListBar title={this.props.title} moveCallback={this.toggleDragging} color={this.props.board.boardcolor} addCardCallback={this.props.addCardCallback}/>
+              <ListBar title={this.props.title} moveCallback={this.toggleDragging} color={this.props.board.boardcolor} addCardCallback={this.props.addCardCallback} deleteList = {this.props.deleteList}/>
             {/*<div>{this.props.title}</div>*/}
             {/*<button onClick={this.toggleDragging}>Move</button>
             <button onClick={this.addCard}>AddCard</button>*/}
@@ -137,7 +137,7 @@ class App extends Component {
                         provided.draggableProps.style
                       )}
                     >
-                      <Card title={item.title} text={item.text} due_date={item.due_date}/>
+                      <Card title={item.title} text={item.text} due_date={item.due_date} board = {this.props.board} ListTitle = {this.props.title}/>
                       {/*item.content*/}
                     </div>
                   )}
