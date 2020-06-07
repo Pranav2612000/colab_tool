@@ -11,12 +11,14 @@ const getCardStyles = (isSelected) => {
   console.log(isSelected);
   if(isSelected) {
     return {
-        "background-color": "blue",
+        "background-color": "#fcc905",
         "background-image":"none",
         //"border-color":"#454547",
         "margin-left" : 0,
         "margin-right": 0,
         "padding": "0.25rem",
+        'box-shadow': 'inset 0 0 10px black',
+        'opacity': 0.8,
     }
   }
     return {

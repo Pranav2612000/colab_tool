@@ -71,11 +71,12 @@ class App extends Component {
   getListStyle(isDraggingOver) {
     if(this.props.in_context) {
       return {
-            background: 'black',
+            background: '#fcc905',
             "border-radius": 10,
             padding: grid,
             //position: "relative",
             width: 300,
+            'box-shadow': 'inset 0 0 10px black',
         }
     }
     return {
@@ -84,6 +85,7 @@ class App extends Component {
           padding: grid,
           //position: "relative",
           width: 300,
+          'box-shadow': '5px 5px grey',
       }
     };
 
