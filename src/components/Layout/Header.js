@@ -128,11 +128,7 @@ const Header = (props) => {
                   </i>
                 </span>
               </Nav.Link>
-              <Nav.Link style={{color:"#5340c9",fontSize:"145%", marginRight: '5%', marginLeft:'5%'}} >
-                <span title="Add Colloborator">
-                  <i class='fa fa-user-plus'></i>
-                </span>
-              </Nav.Link>
+              
               <Nav.Link style={{color:"#5340c9",fontSize:"145%"}} onClick={delboard}  >
                 <span title='delete board'>
                   <i class='fa fa-trash'></i>

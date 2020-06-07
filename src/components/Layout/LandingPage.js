@@ -20,7 +20,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { red } from "@material-ui/core/colors";
-
+import logo from '../../assets/images/header_logo.png';
 
 const styles = {
   contentHeaderMenuLink: {
@@ -133,6 +133,7 @@ class App extends React.Component {
   makeStyles= (theme) => ({
     root: {
       flexGrow: 1,
+      height:"100%"
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -175,57 +176,54 @@ class App extends React.Component {
     };
 
     return (
-        <Sidebar {...sidebarProps}>
-          <div className={classes.root} style={{backgroundColor:"red"}} >
-      
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} onClick={this.menuButtonClick} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          TASK MANAGEMENT SYSTEM
-            <div style={{width:"65vw",marginLeft:"14vw"}} >
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                style={{marginLeft:"67vw"}}
-                onClick={this.handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={this.state.anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={this.state.open1}
-                onClose={this.handleClose}
-              >
-                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
-        </Toolbar>
-      </AppBar>
-    </div>
-          <Jumbotron>
-        <h1 className="display-3">Welcome !</h1>
-        <p className="lead">Press the Hamburger icon or the menu button in the navbar to navigate to different boards(Some features are still being developed)</p>
-        <hr className="my-2" />
-        <p>On the board page, press the button labelled "M" to start movement of the lists. You can then move them freely.</p>
-        <p>Press the '+' labelled button to add buttons to cards. </p>
-        <p className="lead">
-        </p>
+      <Sidebar {...sidebarProps}>
+      <div className={classes.root} id="hel" style={{overflowY:"hidden",height:"100%"}} >
+  
+  <AppBar position="static">
+    <Toolbar>
+      <IconButton edge="start" className={classes.menuButton} onClick={this.menuButtonClick} color="inherit" aria-label="menu">
+        <MenuIcon />
+      </IconButton>
+      <text style={{fontFamily:"SaucerBB",textAlign:"left"}} >COLAB_TOOL</text>
+      <p style={{fontFamily:"Times New Roman", margin:'auto'}} >
+        <img src={logo} style={{height: '50px'}}/>
+      </p>
+        <div>
+          <Menu
+            id="menu-appbar"
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={this.state.open1}
+            onClose={this.handleClose}
+          >
+            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+            <MenuItem onClick={this.handleClose}>My account</MenuItem>
+          </Menu>
+        </div>
+    </Toolbar>
+  </AppBar>
+          <Jumbotron id="pad1" >
+            <p className="display-3" style={{fontFamily:"CrosshatcherD",textAlign:"center",fontSize:"20vh",height:"40%"}} >Welcome !</p>
+            <p className="lead" style={{fontFamily:'SaucerBB',textAlign:"left",marginLeft:"10%"}} ><i class='fa fa-star' style={{paddingRight:"1%"}} ></i>HOW TO USE THE APPLICATION?</p>
+            <p className="lead" style={{fontFamily:'SaucerBB',textAlign:"left",marginLeft:"10%"}} >1. Press the top-left  Hamburger icon to create and navigate to different boards</p>
+            <p className="lead" style={{fontFamily:'SaucerBB',textAlign:"left",marginLeft:"10%"}} >2. On the board page, press the  <i class='fa fa-calendar-plus' style={{paddingLeft:"1%",paddingRight:"1%"}} >
+                  </i>  in order to add lists on your board</p>
+            <p className="lead" style={{fontFamily:'SaucerBB',textAlign:"left",marginLeft:"10%"}} >3. Press the <i class='fa fa-arrows' style={{paddingLeft:"1%",paddingRight:"1%"}} >
+                  </i> to start movement of the lists. You can then move them freely.</p>
+            <p className="lead" style={{fontFamily:'SaucerBB',textAlign:"left",marginLeft:"10%"}} >4. Press the <i class='fa fa-plus' style={{paddingLeft:"1%",paddingRight:"1%"}} >
+                  </i> in order to add cards in your list.</p>
+            <p className="lead" style={{fontFamily:'SaucerBB',textAlign:"left",marginLeft:"10%"}} >5. You can reorder cards in the same list or drag and drop them between different lists</p>
       </Jumbotron>
+      <div style={{height:"7vh",backgroundColor:"blue",width:"100%"}} ></div>
+      </div>
         </Sidebar>
     );
   }

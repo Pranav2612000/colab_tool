@@ -32,6 +32,9 @@ function App() {
           <Route exact path="/signup/" >
             <SignUp/>
           </Route>
+          <Route exact path="/Allboards/">
+            <AllBoards/>
+          </Route>
           <Route path="/boards/:id" children={<BoardPageFunc/>}/>
           <Route exact path="/" >
             <Login/>
