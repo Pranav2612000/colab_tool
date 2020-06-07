@@ -7,7 +7,18 @@ import {
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
 
-const getCardStyles = () => {
+const getCardStyles = (isSelected) => {
+  console.log(isSelected);
+  if(isSelected) {
+    return {
+        "background-color": "blue",
+        "background-image":"none",
+        //"border-color":"#454547",
+        "margin-left" : 0,
+        "margin-right": 0,
+        "padding": "0.25rem",
+    }
+  }
     return {
       /*"background-color": "rgba(255,255,255,0.9)",*/
         //"border-color":"#454547",
@@ -34,7 +45,8 @@ const getCardTextStyles = () => {
       /*"font-family":"CabinSketch-Bold",*/
         "font-family":"KingthingsScrybbledot",
         "margin-bottom": 0,
-        "color":"black"
+        "color":"black",
+        "font-size": "2vw",
     }
 }
 
@@ -45,6 +57,7 @@ const deleteCard = (props) => {
 }
 
 const ListCard = (props) => {
+  console.log(props);
   const deleteCard = async() => {
     console.log("in delete card fun");
     console.log(props.title);
@@ -96,10 +109,11 @@ const ListCard = (props) => {
       })
 
     console.log(props.board.list);
+    console.log(props["in_context"]);
   }
   return (
     <div>
-        <Card body outline color="#717175" style={getCardStyles()}>
+        <Card body outline color="#717175" style={getCardStyles(props["in_context"])}>
           <CardTitle style={getCardTitleStyles()}><b>{props.title}</b></CardTitle>
           <CardText style={getCardTextStyles()}>{props.text}</CardText>
           <div class='controls' style = {{textAlign: 'right'}}>

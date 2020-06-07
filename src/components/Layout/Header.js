@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import {Spinner} from 'react-bootstrap';
-import {Container, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label} from 'reactstrap';
+import {Container, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label, InputGroup} from 'reactstrap';
 import { withRouter } from "react-router-dom";
 import {
   Navbar,
@@ -119,6 +119,9 @@ const Header = (props) => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
             <Nav style={{marginRight:'5%'}}> 
+                <Input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" value={props.searchText}
+                  onChange={e => props.setSearchText(e.target.value)}></Input>
+              <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
               <Nav.Link style={{color:"#5340c9",fontSize:"145%", marginRight: '5%', marginLeft:'5%'}} onClick={toggle}>
                 <span title='Add List'>
                   <i class='fa fa-calendar-plus'>
@@ -138,6 +141,7 @@ const Header = (props) => {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+
       <Modal isOpen={modal} toggle={toggle} className={className}>
         <Form>
           <ModalHeader toggle={toggle}>Add List</ModalHeader>
