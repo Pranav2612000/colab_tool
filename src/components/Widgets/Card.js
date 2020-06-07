@@ -103,7 +103,7 @@ const ListCard = (props) => {
       body: reqData
     })
       .then(res => {
-        alert('hello');
+        alert('card deleted. Refresh to view result.');
         props.history.push('/boards/' + props.board.boardname);
         console.log(res);
       })
