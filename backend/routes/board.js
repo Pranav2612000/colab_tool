@@ -11,6 +11,7 @@ const auth = require('../auth');
 
 const UserBoards = require('../models/userboard.model');
 const Boards = require('../models/board.model');
+
 router.post("/addboard", auth, async (req, res) => {
     console.log("req rcvd");
     let username = req.user.id;
@@ -158,5 +159,4 @@ router.post("/allboarddata", auth, async (req, res) => {
         })}
     )
 })
-
 module.exports = router;

@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "mdbreact": "^4.25.4",
+    "moment": "^2.26.0",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-bootstrap": "^1.0.0-beta.17",
