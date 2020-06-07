@@ -34,11 +34,11 @@
     "reactstrap": "^8.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start1": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start1": "NPM_CONFIG_PRODUCTION=false node ./backend/index.js",
+    "start": "NPM_CONFIG_PRODUCTION=false node ./backend/index.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && npm run build"
   },
   "eslintConfig": {
