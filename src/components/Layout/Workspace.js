@@ -4,6 +4,7 @@ import Header from "../Layout/Header";
 import List from "../Widgets/List";
 import ReactDOM from "react-dom";
 import {Container, Row, Col} from 'reactstrap';
+import { withRouter } from "react-router-dom";
 import DraggableList from '../Widgets/DraggableList';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import url from "../../links";
@@ -23,6 +24,7 @@ const Workspace = props => {
           creator: props.creator,
           boardname: props.boardname
         };
+        var history = props.history;
         await axios.post(url + "board/getboarddata/",reqData, {
           headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
           body: reqData
@@ -33,7 +35,10 @@ const Workspace = props => {
           setLoadingDone(true);
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data.msg);
+          if(err.response.data.msg === "Token is not valid") {
+            history.push('/login');       
+          }
         })
       };
       fetchData();
@@ -153,4 +158,4 @@ const Workspace = props => {
         </div>
     );
 }
-export default Workspace;
+export default withRouter(Workspace);
