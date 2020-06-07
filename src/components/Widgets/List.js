@@ -122,8 +122,6 @@ class App extends Component {
   // But in this example everything is just done in one place for simplicity
   render() {
     return (
-  //    <DragDropContext onBeforeCapture={this.onBeforeCapture} onDragEnd={this.onDragEnd}>
-        //<Droppable droppableId="droppable">
         <Droppable droppableId={this.props.title}>
           {(provided, snapshot) => (
             <div
