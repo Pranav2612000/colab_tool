@@ -10,7 +10,7 @@ import {Spinner} from 'react-bootstrap'
 
 const styles = {
   sidebar: {
-    width: 500,
+    width: 800,
     height: "90vh",
     marginTop: "35%"
   },

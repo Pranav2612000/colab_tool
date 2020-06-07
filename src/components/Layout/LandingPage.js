@@ -184,7 +184,7 @@ class App extends React.Component {
       <IconButton edge="start" className={classes.menuButton} onClick={this.menuButtonClick} color="inherit" aria-label="menu">
         <MenuIcon />
       </IconButton>
-      <text style={{fontFamily:"Times New Roman",textAlign:"left"}} >COLAB_TOOL</text>
+      <text style={{fontFamily:"SaucerBB",textAlign:"left"}} >COLAB_TOOL</text>
       <p style={{fontFamily:"Times New Roman", margin:'auto'}} >
         <img src={logo} style={{height: '50px'}}/>
       </p>

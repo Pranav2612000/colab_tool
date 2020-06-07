@@ -33,7 +33,7 @@ function App() {
             <SignUp/>
           </Route>
           <Route exact path="/Allboards/">
-            <Allboards/>
+            <AllBoards/>
           </Route>
           <Route path="/boards/:id" children={<BoardPageFunc/>}/>
           <Route exact path="/" >
