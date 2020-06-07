@@ -340,14 +340,14 @@ const DraggableList = props => {
       {isDraggable ? (
         <Draggable bounds={"#pad"} onStop={onDragStop}>
           <div style={{ backgroundColor: "white" }} id={"dragzone" + props.id} style={getStyle()}>
-            <List cards={props.cards} dragCallback={toggleListDrag} deleteList={deleteList} innerdrag={true} title={props.title} cards={props.cards} board={props.board} addCardCallback={toggle}></List>
+            <List cards={props.cards} dragCallback={toggleListDrag} deleteList={deleteList} innerdrag={true} title={props.title} cards={props.cards} board={props.board} addCardCallback={toggle} in_context={props.in_context}></List>
           </div>
         </Draggable>
       )
         :
         (
           <div id={"dragzone" + props.id} style={getStyle()}>
-            <List cards={props.cards} dragCallback={toggleListDrag} deleteList={deleteList} innerdrag={false} title={props.title} cards={props.cards} board={props.board} addCardCallback={toggle}></List>
+            <List cards={props.cards} dragCallback={toggleListDrag} deleteList={deleteList} innerdrag={false} title={props.title} cards={props.cards} board={props.board} addCardCallback={toggle} in_context={props.in_context}></List>
           </div>
         )}
 

@@ -12,6 +12,8 @@
     "availity-reactstrap-validation": "^2.6.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "fuzzy-search": "^3.2.1",
+    "jquery": "^3.5.1",
     "mdbreact": "^4.25.4",
     "moment": "^2.26.0",
     "react": "^16.13.1",

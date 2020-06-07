@@ -7,7 +7,9 @@ import {Container, Row, Col} from 'reactstrap';
 import { withRouter } from "react-router-dom";
 import DraggableList from '../Widgets/DraggableList';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import FuzzySearch from 'fuzzy-search';
 import url from "../../links";
+import $ from 'jquery';
 //import { blue } from '@material-ui/core/colors';
 
 const Workspace = props => {
@@ -15,6 +17,8 @@ const Workspace = props => {
     const [board,setBoard] = useState({});
     const [cards, setCards] = useState();
     const [loadingDone, setLoadingDone] = useState(false);
+    const [searchText, setSearchText] = useState("");
+    var [searcher, setSearcher] = useState();
     var lists = [];
 
     /* Fetch Board Data when board changes. */
@@ -30,9 +34,17 @@ const Workspace = props => {
           body: reqData
         })
         .then(res => {
-          console.log(res);
+          console.log(res.data);
           setBoard(res.data);
           setLoadingDone(true);
+          var new_searcher = new FuzzySearch(
+            res.data.list,
+            ['title','cards.title','cards.text','cards.due_date'],
+            {
+              caseSensitive: false,
+            }
+          );
+          setSearcher(new_searcher);
         })
         .catch(err => {
           console.log(err.response.data.msg);
@@ -43,6 +55,13 @@ const Workspace = props => {
       };
       fetchData();
     },[props.boardname]);
+  
+    /* Called when the search string changes. */
+    /*
+    useEffect(() => {
+      console.log(searchText);
+    },[searchText]);
+    */
 
     /* A little function to help us with reordering the result. */
     const reorder = (list, startIndex, endIndex) => {
@@ -131,15 +150,56 @@ const Workspace = props => {
     }
 
     function displayLists() {
+      var results = [];
+      var listsInContext = [];
+      console.log('redesplaying lists');
       if(board.list == undefined) {
         return (
           <></>   //<h1></h1>
         )
       }
-
+      for(var i = 0; i < board.list.length; i++) {
+        board.list[i]["in_context"] = false;
+        for(var j = 0; j < board.list[i].cards.length;j++) {
+          board.list[i].cards[j]['in_context'] = false;
+        }
+      }
+      if(searcher != undefined && searchText != '') {
+        listsInContext = searcher.search(searchText);
+      }
+      if(listsInContext.length > 0) {
+        listsInContext.forEach((list, index) => {
+          //If list matches add the list_title to result.
+          if(list.title.toUpperCase().includes(searchText.toUpperCase())) {
+            list["in_context"] = true;
+          } else {
+            //Else search each card to find the card in
+            //context and add its title to result.
+            list["in_context"] = false;
+            if(list.cards.length > 0) {
+              list.cards.forEach((card, ind) => {
+                if(card.title.toUpperCase().includes(searchText.toUpperCase())) {
+                  card["in_context"] = true;
+                  return;
+                }
+                if(card.due_date.toUpperCase().includes(searchText.toUpperCase())) {
+                  card["in_context"] = true;
+                  return;
+                }
+                if(card.text.toUpperCase().includes(searchText.toUpperCase())) {
+                  card["in_context"] = true;
+                  return;
+                }
+              });
+            }
+          }
+        });
+        console.log(results);
+      }
+      console.log(board.list);
       for(var i = 0; i < board.list.length; i++) {
         lists.push(
-          <DraggableList id={i} x={board.list[i].pos.X} y={board.list[i].pos.Y} title={board.list[i].title} cards={board.list[i].cards} board={board}></DraggableList>
+          <DraggableList id={i} x={board.list[i].pos.X} y={board.list[i].pos.Y} title={board.list[i].title} cards={board.list[i].cards} board={board} in_context={board.list[i]["in_context"]}></DraggableList>
         )
       }
       return lists;
@@ -147,7 +207,7 @@ const Workspace = props => {
 
     return (
         <div style={{height:"90vh "}} >
-          <Header  id = 'header2' title={props.boardname} creator={props.creator} board={board}/>
+          <Header  id = 'header2' title={props.boardname} creator={props.creator} board={board} searchText={searchText} setSearchText={setSearchText}/>
           
           <DragDropContext onBeforeCapture={onBeforeCapture} onDragEnd={onDragEnd}>
             <div id="pad">

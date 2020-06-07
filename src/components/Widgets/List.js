@@ -69,13 +69,22 @@ class App extends Component {
     }
   }
   getListStyle(isDraggingOver) {
-          return {
-                background: isDraggingOver ? this.props.board.boardcolor : this.props.board.boardcolor ,
-                "border-radius": 10,
-                padding: grid,
-                //position: "relative",
-                width: 300,
-            }
+    if(this.props.in_context) {
+      return {
+            background: 'black',
+            "border-radius": 10,
+            padding: grid,
+            //position: "relative",
+            width: 300,
+        }
+    }
+    return {
+          background: isDraggingOver ? this.props.board.boardcolor : this.props.board.boardcolor ,
+          "border-radius": 10,
+          padding: grid,
+          //position: "relative",
+          width: 300,
+      }
     };
 
   toggleDragging() {
@@ -138,7 +147,7 @@ class App extends Component {
                         provided.draggableProps.style
                       )}
                     >
-                      <Card title={item.title} text={item.text} due_date={item.due_date} board = {this.props.board} ListTitle = {this.props.title}/>
+                      <Card title={item.title} text={item.text} due_date={item.due_date} board = {this.props.board} ListTitle = {this.props.title} in_context={item["in_context"]}/>
                       {/*item.content*/}
                     </div>
                   )}
