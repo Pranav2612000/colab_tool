@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import Draggable, { DraggableCore } from 'react-draggable';
 import List from "../Widgets/List";
@@ -127,6 +128,7 @@ const DraggableList = props => {
       .then(res => {
         console.log(res);
         setLoading(false)
+        props.history.push('/boards/' + props.board.boardname);
       })
       .catch(err => {
         console.log(err);
@@ -407,4 +409,4 @@ const DraggableList = props => {
     </span>
   );
 }
-export default DraggableList;
+export default withRouter(DraggableList);

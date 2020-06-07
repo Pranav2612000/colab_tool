@@ -98,12 +98,13 @@ const ListCard = (props) => {
       board_list: props.board.list,
       boardcolor: props.board.boardcolor,
     };
-
     await axios.post(url + "board/addboard/", reqData, {
       headers: { 'colab-tool-token': localStorage.getItem("colab-tool-token") },
       body: reqData
     })
       .then(res => {
+        alert('hello');
+        props.history.push('/boards/' + props.board.boardname);
         console.log(res);
       })
       .catch(err => {

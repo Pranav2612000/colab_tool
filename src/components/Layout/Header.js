@@ -84,6 +84,7 @@ const Header = (props) => {
       board_list: board_list,
       boardcolor : boardcolor,
     };
+    var history = props.history;
     await axios.post(url + "board/addboard/",reqData, {
       headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
       body: reqData
@@ -93,7 +94,8 @@ const Header = (props) => {
       if(res.status == 200) {
         setLoading(false);
         console.log("success");
-        window.location.reload();
+        toggle();
+        history.push("/boards/" + props.title);
       } else {
         setLoading(false);
         console.log("Something went wrong");

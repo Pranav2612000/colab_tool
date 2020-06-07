@@ -4,6 +4,7 @@ import { Container, ModalFooter, Modal, ModalBody, Alert , ModalHeader, Form, Fo
 import axios from 'axios';
 import PropTypes from "prop-types";
 import MaterialTitlePanel from "./MaterialTitlePanel";
+import { withRouter } from "react-router-dom";
 import Logout from "../Widgets/Logout";
 import url from "../../links";
 import {Spinner} from 'react-bootstrap'
@@ -86,6 +87,7 @@ const SidebarContent = props => {
       boardname: board_name,
       boardcolor: color
     };
+    var history = props.history;
     await axios.post(url + "user/addpersonalboards/", reqData, {
       headers: { 'colab-tool-token': localStorage.getItem("colab-tool-token") },
       body: reqData
@@ -95,7 +97,7 @@ const SidebarContent = props => {
       if(res.status == 200) {
         setLoading(false)
         console.log("success");
-        window.location.reload();
+        history.push("/boards/" + board_name);
       } else {
         setLoading(false);
         Alert("Something went wrong");
@@ -214,4 +216,4 @@ SidebarContent.propTypes = {
   style: PropTypes.object
 };
 
-export default SidebarContent;
+export default withRouter(SidebarContent);
