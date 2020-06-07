@@ -26,7 +26,6 @@ const styles = {
     backgroundColor: "#757575"
   },
   content: {
-    padding: "16px",
     height: "100%",
     marginTop: "64px",
     backgroundColor: "white"
@@ -118,10 +117,11 @@ const SidebarContent = props => {
   return (
     <div style={{height: '100%', overflow: 'hidden'}}>
       <div style={styles.content} >
-        <Link path="/" /*component={}*/>
-          <span style={styles.sidebarLink}>
-            <p style={{ color: "black", fontSize: "2vh" }} >Profile(In Progress)</p>
+      <Link to={{pathname:"/Allboards"}} /*component={}*/>
+          <Button style={{width:"100%",backgroundColor:"white"}} ><span style={styles.sidebarLink}>
+            <p style={{ color: "black", fontSize: "2vh" }} >View Boards</p>
           </span>
+          </Button>
         </Link>
         <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
         <Link path='/' /*component={}*/>
@@ -134,29 +134,6 @@ const SidebarContent = props => {
         ) : (
             <span></span>
           )}
-        <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
-        <Link exact path="/" /*component={}*/>
-          <span style={styles.sidebarLink} onClick={viewTeamBoards}>
-            <p style={{ color: "black", fontSize: "2vh" }} >Team Boards</p>
-          </span>
-        </Link>
-        {teamToggle ? (
-          <h4>In Progress</h4>
-        ) : (
-            <span></span>
-          )}
-        <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
-        <Link path="/" /*component={}*/>
-          <span style={styles.sidebarLink}>
-            <p style={{ color: "black", fontSize: "2vh" }} >Settings(In Progress)</p>
-          </span>
-        </Link>
-        <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
-        <Link to={{pathname:"/Allboards"}} /*component={}*/>
-          <span style={styles.sidebarLink}>
-            <p style={{ color: "black", fontSize: "2vh" }} >View Boards</p>
-          </span>
-        </Link>
         <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
         <Logout text={"Logout"} />
       </div>

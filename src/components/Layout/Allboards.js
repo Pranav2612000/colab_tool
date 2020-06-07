@@ -69,7 +69,7 @@ class App extends React.Component {
 
   componentDidMount(){
     console.log("I'm in all boards data");
-    axios.post(url + "board/allboarddata/", {
+    axios.post(url + "board/allboarddata/",{ } ,{
         headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")}
       })
       .then(res => {
