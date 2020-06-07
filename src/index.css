@@ -16,3 +16,15 @@ code {
   font-family: 'SaucerBB';
   src: local('SaucerBB'), url(./assets/fonts/SaucerBB.ttf) format('truetype');
 }
+@font-face {
+  font-family: 'CrosshatcherD';
+  src: local('CrosshatcherD'), url(./assets/fonts/CrosshatcherD.otf) format('truetype');
+}
+@font-face {
+  font-family: 'CabinSketch-Regular';
+  src: local('CabinSketch-Regular'), url(./assets/fonts/CabinSketch-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'CabinSketch-Bold';
+  src: local('CabinSketch-Bold'), url(./assets/fonts/CabinSketch-Bold.ttf) format('truetype');
+}

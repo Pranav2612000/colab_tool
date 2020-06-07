@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './assets/fonts/SaucerBB.ttf';
+import './assets/fonts/CrosshatcherD.otf';
+import './assets/fonts/CabinSketch-Regular.ttf';
+import './assets/fonts/CabinSketch-Bold.ttf';
 
 ReactDOM.render(
   <React.StrictMode>

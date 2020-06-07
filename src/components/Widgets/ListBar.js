@@ -14,8 +14,6 @@ const Example = (props) => {
     <Navbar.Toggle />
     <Navbar.Collapse className="justify-content-end">
         <Button style={{backgroundColor:"blue"}} onClick={props.moveCallback}><i class="fa fa-arrows" aria-hidden="true" style={{color:"white"}} ></i></Button>
-        <Button style={{backgroundColor:"#12cc15",marginLeft:"5%"}} variant = "success" onClick={props.addCardCallback}><i class="fa fa-plus" style={{color:"black"}} aria-hidden="true"></i></Button>
-        <Button style={{backgroundColor:"#12cc15",marginLeft:"5%"}} variant = "success" onClick={props.deleteList}>delete List</Button>
     </Navbar.Collapse>
   </Navbar>
   );

@@ -102,7 +102,9 @@ body {
 .card {
   margin-left: 25px;
   margin-right: 25px;
-  background-color: orchid;
+  /*background-color: orchid;*/
+  background-image: url('../src/assets/images/papertexture1.jpg');
+  opacity:0.85;
 }
 hr {
   width: 70%;

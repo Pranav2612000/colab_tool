@@ -9,8 +9,8 @@ import {
 
 const getCardStyles = () => {
     return {
-        "background-color": "white",
-        "border-color":"#454547",
+      /*"background-color": "rgba(255,255,255,0.9)",*/
+        //"border-color":"#454547",
         "margin-left" : 0,
         "margin-right": 0,
         "padding": "0.25rem",
@@ -20,12 +20,15 @@ const getCardTitleStyles = () => {
     return {
         "margin-bottom": 0,
         "color":"black",
-        "font-family":"Open Sans",
+      /*"font-family":"CabinSketch-Bold",*/
+      /*"font-family":"CabinSketch-Regular",*/
+        "font-family":"CrosshatcherD",
         "border-bottom": '2px blue solid'
     }
 }
 const getCardTextStyles = () => {
     return {
+        "font-family":"CabinSketch-Regular",
         "margin-bottom": 0,
         "color":"black"
     }
@@ -92,7 +95,7 @@ const ListCard = (props) => {
   }
   return (
     <div>
-        <Card body  outline color="#717175" style={getCardStyles()}>
+        <Card body outline color="#717175" style={getCardStyles()}>
           <CardTitle style={getCardTitleStyles()}><b>{props.title}</b></CardTitle>
           <CardText style={getCardTextStyles()}>{props.text}</CardText>
           <Button style={{backgroundColor:"#d92139",fontFamily:"Open Sans",}}  >More</Button>

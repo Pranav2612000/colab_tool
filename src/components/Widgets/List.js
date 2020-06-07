@@ -7,6 +7,7 @@ import ListBar from "../Widgets/ListBar";
 import url from "../../links"
 import pin from '../../assets/images/pin.png';
 import pin1 from '../../assets/images/pin1.png';
+import {Button} from 'react-bootstrap'; 
 
 // fake data generator
 const getItems = count => {
@@ -38,7 +39,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   left: 0,
   position: "relative",
   // change background colour if dragging
-  background: isDragging ? "lightgreen" : "white",
+  //background: isDragging ? "lightgreen" : "white",
 
   // styles we need to apply on draggables
   ...draggableStyle
@@ -120,7 +121,7 @@ class App extends Component {
               style={this.getListStyle(snapshot.isDraggingOver)}
             >
               <img src={pin1} style={{height:'50px', position:'absolute', top:'-30px', right:'-30px', 'z-index':'5'}}/> 
-              <ListBar title={this.props.title} moveCallback={this.toggleDragging} color={this.props.board.boardcolor} addCardCallback={this.props.addCardCallback} deleteList = {this.props.deleteList}/>
+              <ListBar title={this.props.title} moveCallback={this.toggleDragging} color={this.props.board.boardcolor} />
             {/*<div>{this.props.title}</div>*/}
             {/*<button onClick={this.toggleDragging}>Move</button>
             <button onClick={this.addCard}>AddCard</button>*/}
@@ -144,6 +145,9 @@ class App extends Component {
                 </Draggable>
               ))}
               {provided.placeholder}
+              <Button style={{border: '1px solid black', backgroundColor:'lightgreen'}} variant = "success" onClick= {this.props.addCardCallback}>
+                        <i class="fa fa-plus" style={{color:"black"}} aria-hidden="true"></i>
+                      </Button>
             </div>
           )}
         </Droppable>
