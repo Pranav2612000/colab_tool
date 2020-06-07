@@ -14,7 +14,7 @@ import $ from 'jquery';
 
 const Workspace = props => {
     const [isDraggable, setIsDraggable] = useState(false);
-    const [board,setBoard] = useState({});
+    const [boards,setBoards] = useState({});
     const [cards, setCards] = useState();
     const [loadingDone, setLoadingDone] = useState(false);
     const [searchText, setSearchText] = useState("");
@@ -29,13 +29,13 @@ const Workspace = props => {
           boardname: props.boardname
         };
         var history = props.history;
-        await axios.post(url + "board/getboarddata/",reqData, {
+        await axios.post(url + "board/allboarddata/",{}, {
           headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
           body: reqData
         })
         .then(res => {
           console.log(res.data);
-          setBoard(res.data);
+          setBoards(res.data);
           setLoadingDone(true);
           var new_searcher = new FuzzySearch(
             res.data.list,
@@ -47,13 +47,14 @@ const Workspace = props => {
           setSearcher(new_searcher);
         })
         .catch(err => {
+          console.log(err.response.data.msg);
           if(err.response.data.msg === "Token is not valid") {
             history.push('/login');       
           }
         })
       };
       fetchData();
-    },[props.boardname]);
+    },[]);
   
     /* Called when the search string changes. */
     /*
@@ -79,88 +80,18 @@ const Workspace = props => {
 
     /* Function executed when an object being dragged is dropped. */
     function onDragEnd(res, e) {
-      var prevBoard = {...board};
-      /* If dropped at an invalid destination, which doesn't allow drops. */
-      if(!res.destination) {
-        console.log('ending');
-        return;
-      }
-
-      /* Get index of source and destination lists. */
-      const source = res.source;
-      const destination = res.destination;
-      var sourceList = -1;
-      var destList = -1;
-
-      board.list.forEach((val, index) => {
-        if(val.title == source.droppableId) {
-          sourceList = index;
-        }
-        if(val.title == destination.droppableId) {
-          destList = index;
-        }
-      });
-
-      /* If drag & drop in the same list. */
-      if(sourceList == destList) {
-        var newBoard;
-        newBoard = {...board};
-
-        newBoard.list[destList].cards = reorder(
-          board.list[destList].cards,
-          res.source.index,
-          res.destination.index
-        );
-
-        setBoard(newBoard);
-      } else {
-        var newBoard;
-        var target;
-        newBoard = {...board};
-        target = newBoard.list[sourceList].cards[source.index];
-
-        newBoard.list[sourceList].cards.splice(source.index, 1);
-        newBoard.list[destList].cards.splice(destination.index, 0, target);
-        setBoard(newBoard);
-      }
-
-      /* Send the updated card positions to the server. */
-      /* should be replaced by a shorther request which just sends updated info,
-       * instead of sending the whole board. */
-      let reqData = { 
-        users: board.usernames,
-        boardname: board.boardname,
-        board_list: board.list,
-        boardcolor: board.boardcolor,  
-      };
-      axios.post(url + "board/addboard/",reqData, {
-        headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")},
-        body: reqData
-      })
-      .then(res => {
-        console.log(res);
-        console.log("Card Moved Successfully.");
-      })
-      .catch(err => {
-        console.log(err);
-        setBoard(prevBoard);
-        console.log("Card Movement not updated in database");
-      })
+      return;
     }
 
     function displayLists() {
+      var allLists = [];
+      boards.forEach((board, index) => {
       var results = [];
       var listsInContext = [];
       console.log('redesplaying lists');
-      console.log(board.list);
       if(board.list == undefined) {
         return (
-            <span style={{fontFamily:'CrossHatcherD', fontSize: '250%'}}>No Lists Added. Press the icon at the top right to add lists</span>
-        )
-      }
-      if(board.list.length == 0) {
-        return (
-            <span style={{fontFamily:'CrossHatcherD', fontSize: '250%'}}>No Lists Added. Press the icon at the top right to add lists</span>
+          <></>   //<h1></h1>
         )
       }
       for(var i = 0; i < board.list.length; i++) {
@@ -203,17 +134,17 @@ const Workspace = props => {
       }
       console.log(board.list);
       for(var i = 0; i < board.list.length; i++) {
-        lists.push(
+        allLists.push(
           <DraggableList id={i} x={board.list[i].pos.X} y={board.list[i].pos.Y} title={board.list[i].title} cards={board.list[i].cards} board={board} in_context={board.list[i]["in_context"]}></DraggableList>
         )
       }
-      return lists;
+        //allLists.push(lists);
+      });
+      return allLists;
     }
 
     return (
         <div style={{height:"90vh "}} >
-          <Header  id = 'header2' title={props.boardname} creator={props.creator} board={board} searchText={searchText} setSearchText={setSearchText}/>
-          
           <DragDropContext onBeforeCapture={onBeforeCapture} onDragEnd={onDragEnd}>
             <div id="pad">
                   {loadingDone && displayLists()

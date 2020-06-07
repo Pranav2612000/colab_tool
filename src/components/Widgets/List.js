@@ -158,7 +158,10 @@ class App extends Component {
               {provided.placeholder}
               <Button style={{border: '1px solid black', backgroundColor:'lightgreen'}} variant = "success" onClick= {this.props.addCardCallback}>
                         <i class="fa fa-plus" style={{color:"black"}} aria-hidden="true"></i>
-                      </Button>
+              </Button>
+              <Button style={{border: '1px solid black', backgroundColor:'red'}} variant = "success" onClick= {this.props.deleteList}>
+                        <i class="fa fa-trash" style={{color:"black"}} aria-hidden="true"></i>
+              </Button>
             </div>
           )}
         </Droppable>
