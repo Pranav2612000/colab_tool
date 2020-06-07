@@ -124,6 +124,7 @@ router.post("/deleteboard", auth, async (req, res) => {
     });
 })
 router.post("/allboarddata", auth, async (req, res) => {
+    console.log("in allboards data backend")
     let username = req.user.id;
     //Check if username has access to edit the file
     const userBoards = await UserBoards.find({ username: username }).exec();
@@ -146,7 +147,7 @@ router.post("/allboarddata", auth, async (req, res) => {
             } else if (!board) {
                 return;
             } else {
-                console.log("board info sent");
+                console.log("All board info sent");
                 allBoardData.push(board);
                 console.log("boardname:" + boardname);
                 console.log(board);

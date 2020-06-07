@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {withRouter} from 'react-router';
 import {useParams}  from 'react-router-dom';
 import Draggable , {DraggableCore} from 'react-draggable';
-
+import url from '../../links';
 import Sidebar from "react-sidebar";
 import Header from "../Layout/Header";
 import MaterialTitlePanel from "../Layout/MaterialTitlePanel";
@@ -21,6 +21,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import axios from 'axios'
 
 const styles = {
   contentHeaderMenuLink: {
@@ -44,6 +45,7 @@ class App extends React.Component {
       transitions: true,
       touch: true,
       shadow: true,
+      loading:true,
       pullRight: false,
       touchHandleWidth: 20,
       dragToggleDistance: 30
@@ -59,19 +61,22 @@ class App extends React.Component {
   /*componentDidUpdate(prevProps) {
       if(this.props.boardname != prevProps.boardname) {
           this.setState({
-              boardname: this.props.boardname
+              boardname: this.props.boardname 
           });
           console.log(this.props.boardname);
       }
   }*/
 
   componentDidMount(){
-    await axios.post(url + "board/allboarddata/", {
+    console.log("I'm in all boards data");
+    axios.post(url + "board/allboarddata/", {
         headers: {'colab-tool-token': localStorage.getItem("colab-tool-token")}
       })
       .then(res => {
         console.log(res);
-        setLoadingDone(true);
+        this.setState({
+          loading:false
+        })
       })
       .catch(err => {
         console.log(err);

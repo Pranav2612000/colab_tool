@@ -152,6 +152,12 @@ const SidebarContent = props => {
           </span>
         </Link>
         <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
+        <Link to={{pathname:"/Allboards"}} /*component={}*/>
+          <span style={styles.sidebarLink}>
+            <p style={{ color: "black", fontSize: "2vh" }} >View Boards</p>
+          </span>
+        </Link>
+        <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
         <Logout text={"Logout"} />
       </div>
       <div>
