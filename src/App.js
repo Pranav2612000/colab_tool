@@ -10,7 +10,7 @@ import LandingPage from './components/Layout/LandingPage';
 import Login from './components/Pages/Login';
 import SignUp from './components/Pages/SignUp';
 import BoardPageFunc from './components/Pages/BoardPageFunc';
-import Allboards from './components/Layout/Allboards';
+import AllBoards from './components/Pages/AllBoards';
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
 };
@@ -22,6 +22,9 @@ function App() {
         <Switch>
           <Route exact path="/home/" >
             <LandingPage/>
+          </Route>
+          <Route exact path="/allboards/" >
+            <AllBoards/>
           </Route>
           <Route exact path="/login/" >
             <Login/>
