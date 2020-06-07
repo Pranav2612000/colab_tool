@@ -5,6 +5,8 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Card from "../Widgets/Card.js";
 import ListBar from "../Widgets/ListBar";
 import url from "../../links"
+import pin from '../../assets/images/pin.png';
+import pin1 from '../../assets/images/pin1.png';
 
 // fake data generator
 const getItems = count => {
@@ -68,7 +70,6 @@ class App extends Component {
   getListStyle(isDraggingOver) {
           return {
                 background: isDraggingOver ? this.props.board.boardcolor : this.props.board.boardcolor ,
-                border: "solid 2px #092672",
                 "border-radius": 10,
                 padding: grid,
                 //position: "relative",
@@ -118,6 +119,7 @@ class App extends Component {
               ref={provided.innerRef}
               style={this.getListStyle(snapshot.isDraggingOver)}
             >
+              <img src={pin1} style={{height:'50px', position:'absolute', top:'-30px', right:'-30px', 'z-index':'5'}}/> 
               <ListBar title={this.props.title} moveCallback={this.toggleDragging} color={this.props.board.boardcolor} addCardCallback={this.props.addCardCallback}/>
             {/*<div>{this.props.title}</div>*/}
             {/*<button onClick={this.toggleDragging}>Move</button>

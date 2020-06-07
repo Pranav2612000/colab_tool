@@ -27,9 +27,8 @@ const styles = {
   },
   content: {
     padding: "16px",
-    height: "92.5vh",
-    width: "15vw",
-    marginTop: "7vh",
+    height: "100%",
+    marginTop: "64px",
     backgroundColor: "white"
   }
 };
@@ -117,7 +116,7 @@ const SidebarContent = props => {
   }
 
   return (
-    <div>
+    <div style={{height: '100%', overflow: 'hidden'}}>
       <div style={styles.content} >
         <Link path="/" /*component={}*/>
           <span style={styles.sidebarLink}>
