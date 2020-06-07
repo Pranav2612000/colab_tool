@@ -7,6 +7,7 @@ import './assets/fonts/SaucerBB.ttf';
 import './assets/fonts/CrosshatcherD.otf';
 import './assets/fonts/CabinSketch-Regular.ttf';
 import './assets/fonts/CabinSketch-Bold.ttf';
+import './assets/fonts/KingthingsScrybbledot.ttf';
 
 ReactDOM.render(
   <React.StrictMode>

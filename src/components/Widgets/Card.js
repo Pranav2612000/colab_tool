@@ -18,17 +18,21 @@ const getCardStyles = () => {
 }
 const getCardTitleStyles = () => {
     return {
-        "margin-bottom": 0,
+        "margin-bottom": '3%',
+        "margin-top": '2%',
+        "font-size": '120%',
+        "padding-bottom": '3%',
         "color":"black",
       /*"font-family":"CabinSketch-Bold",*/
       /*"font-family":"CabinSketch-Regular",*/
         "font-family":"CrosshatcherD",
-        "border-bottom": '2px blue solid'
+        "border-bottom": '2px black solid'
     }
 }
 const getCardTextStyles = () => {
     return {
-        "font-family":"CabinSketch-Regular",
+      /*"font-family":"CabinSketch-Bold",*/
+        "font-family":"KingthingsScrybbledot",
         "margin-bottom": 0,
         "color":"black"
     }
@@ -98,8 +102,10 @@ const ListCard = (props) => {
         <Card body outline color="#717175" style={getCardStyles()}>
           <CardTitle style={getCardTitleStyles()}><b>{props.title}</b></CardTitle>
           <CardText style={getCardTextStyles()}>{props.text}</CardText>
-          <Button style={{backgroundColor:"#d92139",fontFamily:"Open Sans",}}  >More</Button>
-          <Button onClick = {deleteCard} style={{backgroundColor:"#d92139",fontFamily:"Open Sans",}}  >delete</Button>
+          <div class='controls' style = {{textAlign: 'right'}}>
+            <Button style={{backgroundColor:"transparent", border: 'none'}}  ><i class='fa fa-expand-alt' style={{color:'black'}}/></Button>
+            <Button onClick = {deleteCard} style={{backgroundColor:"transparent", border:"none"}}  ><i class='fa fa-trash' style={{color:'black'}}/></Button>
+          </div>
         </Card>
     </div>
 

@@ -28,3 +28,7 @@ code {
   font-family: 'CabinSketch-Bold';
   src: local('CabinSketch-Bold'), url(./assets/fonts/CabinSketch-Bold.ttf) format('truetype');
 }
+@font-face {
+  font-family: 'KingthingsScrybbledot';
+  src: local('KingthingsScrybbledot'), url(./assets/fonts/KingthingsScrybbledot.ttf) format('truetype');
+}
