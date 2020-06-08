@@ -395,7 +395,7 @@ const DraggableList = props => {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="due_time">Due Time</Label>
+              <Label for="due_time">Due Time (HH:MM: am/pm)</Label>
               <Input
                 type="time"
                 name="due_time"
