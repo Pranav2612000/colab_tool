@@ -47,8 +47,8 @@ const Workspace = props => {
           setSearcher(new_searcher);
         })
         .catch(err => {
-          console.log(err.response.data.msg);
-          if(err.response.data.msg === "Token is not valid") {
+          console.log(err.response);
+          if(err.response && err.response.data && err.response.data.msg === "Token is not valid") {
             history.push('/login');       
           }
         })
@@ -86,51 +86,11 @@ const Workspace = props => {
     function displayLists() {
       var allLists = [];
       boards.forEach((board, index) => {
-      var results = [];
-      var listsInContext = [];
       console.log('redesplaying lists');
       if(board.list == undefined) {
         return (
           <></>   //<h1></h1>
         )
-      }
-      for(var i = 0; i < board.list.length; i++) {
-        board.list[i]["in_context"] = false;
-        for(var j = 0; j < board.list[i].cards.length;j++) {
-          board.list[i].cards[j]['in_context'] = false;
-        }
-      }
-      if(searcher != undefined && searchText != '') {
-        listsInContext = searcher.search(searchText);
-      }
-      if(listsInContext.length > 0) {
-        listsInContext.forEach((list, index) => {
-          //If list matches add the list_title to result.
-          if(list.title.toUpperCase().includes(searchText.toUpperCase())) {
-            list["in_context"] = true;
-          } else {
-            //Else search each card to find the card in
-            //context and add its title to result.
-            list["in_context"] = false;
-            if(list.cards.length > 0) {
-              list.cards.forEach((card, ind) => {
-                if(card.title.toUpperCase().includes(searchText.toUpperCase())) {
-                  card["in_context"] = true;
-                  return;
-                }
-                if(card.due_date.toUpperCase().includes(searchText.toUpperCase())) {
-                  card["in_context"] = true;
-                  return;
-                }
-                if(card.text.toUpperCase().includes(searchText.toUpperCase())) {
-                  card["in_context"] = true;
-                  return;
-                }
-              });
-            }
-          }
-        });
-        console.log(results);
       }
       console.log(board.list);
       for(var i = 0; i < board.list.length; i++) {

@@ -147,7 +147,7 @@ class App extends Component {
                         provided.draggableProps.style
                       )}
                     >
-                      <Card title={item.title} text={item.text} due_date={item.due_date} board = {this.props.board} ListTitle = {this.props.title} in_context={item["in_context"]}/>
+                      <Card title={item.title} text={item.text} due_date={item.due_date} due_time =  {item.due_time} board = {this.props.board} ListTitle = {this.props.title} in_context={item["in_context"]}/>
                       {/*item.content*/}
                     </div>
                   )}

@@ -109,7 +109,7 @@ const Header = (props) => {
     console.log(props.board);
   }
   return (
-    <span style={{'background-color':'red'}}>
+    <span style={{backgroundColor:'red'}}>
         <Navbar collapseOnSelect expand="lg" bg="red" variant="light">
           <span style={{'font-size':'145%'}}>
             <i class='fa fa-columns'></i>
