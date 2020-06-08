@@ -45,10 +45,12 @@ const getCardTitleStyles = () => {
 const getCardTextStyles = () => {
     return {
       /*"font-family":"CabinSketch-Bold",*/
-        "font-family":"KingthingsScrybbledot",
+        "font-family":"SaucerBB",
         "margin-bottom": 0,
         "color":"black",
-        "font-size": "2vw",
+        "font-size": "1.5vw",
+        "text-align":"left",
+        "padding-left":"10%",
     }
 }
 
@@ -118,7 +120,7 @@ const ListCard = (props) => {
     <div>
         <Card body outline color="#717175" style={getCardStyles(props["in_context"])}>
           <CardTitle style={getCardTitleStyles()}><b>{props.title}</b></CardTitle>
-          <CardText style={getCardTextStyles()}>{props.text}</CardText>
+          <CardText style={getCardTextStyles()}><li>{props.text}</li></CardText>
           <div class='controls' style = {{textAlign: 'right'}}>
             <Button style={{backgroundColor:"transparent", border: 'none'}}  ><i class='fa fa-expand-alt' style={{color:'black'}}/></Button>
             <Button onClick = {deleteCard} style={{backgroundColor:"transparent", border:"none"}}  ><i class='fa fa-trash' style={{color:'black'}}/></Button>
