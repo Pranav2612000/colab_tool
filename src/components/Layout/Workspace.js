@@ -47,7 +47,8 @@ const Workspace = props => {
           setSearcher(new_searcher);
         })
         .catch(err => {
-          if(err.response.data.msg === "Token is not valid") {
+          console.log(err.response);
+          if(err.response && err.response.data && err.response.data.msg === "Token is not valid") {
             history.push('/login');       
           }
         })
