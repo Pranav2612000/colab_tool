@@ -214,8 +214,4 @@ const SidebarContent = props => {
   );
 };
 
-SidebarContent.propTypes = {
-  style: PropTypes.object
-};
-
 export default withRouter(SidebarContent);

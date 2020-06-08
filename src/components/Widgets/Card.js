@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import url from '../../links';
+import { withRouter } from "react-router-dom";
 
 import {
   Card, CardImg, CardText, CardBody,
@@ -100,13 +101,13 @@ const ListCard = (props) => {
       board_list: props.board.list,
       boardcolor: props.board.boardcolor,
     };
+    var history = props.history;
     await axios.post(url + "board/addboard/", reqData, {
       headers: { 'colab-tool-token': localStorage.getItem("colab-tool-token") },
       body: reqData
     })
       .then(res => {
-        alert('card deleted. Refresh to view result.');
-        props.history.push('/boards/' + props.board.boardname);
+        history.push('/boards/' + props.board.boardname);
         console.log(res);
       })
       .catch(err => {
@@ -132,4 +133,4 @@ const ListCard = (props) => {
   );
   
 };
-export default ListCard;
+export default withRouter(ListCard);
