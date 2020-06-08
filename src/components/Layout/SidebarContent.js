@@ -97,6 +97,8 @@ const SidebarContent = props => {
       if(res.status == 200) {
         setLoading(false)
         console.log("success");
+        toggle();
+        setPersonalBoardsList([...personalBoardsList, board_name])
         history.push("/boards/" + board_name);
       } else {
         setLoading(false);
