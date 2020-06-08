@@ -132,6 +132,7 @@ router.post("/allboarddata", auth, async (req, res) => {
     var allBoardData = [];
     var flag = true;
     var len = board_list.length;
+    console.log(board_list);
     await board_list.forEach((boardname, index) =>
         {   
             if(!flag){
@@ -142,15 +143,13 @@ router.post("/allboarddata", auth, async (req, res) => {
             if (err) {
                  console.log(err);
                 res.status(400).json({ err });
-                flag = false;
                 return;
             } else if (!board) {
-                return;
+              console.log('no lists on this board:' + boardname);
             } else {
                 console.log("All board info sent");
                 allBoardData.push(board);
                 console.log("boardname:" + boardname);
-                console.log(board);
             }
 
             if(len - 1 == index) {

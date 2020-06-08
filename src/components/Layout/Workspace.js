@@ -35,6 +35,7 @@ const Workspace = props => {
         })
         .then(res => {
           console.log(res.data);
+          lists = [];
           setBoard(res.data);
           setLoadingDone(true);
           var new_searcher = new FuzzySearch(
@@ -47,7 +48,8 @@ const Workspace = props => {
           setSearcher(new_searcher);
         })
         .catch(err => {
-          if(err.response.data.msg === "Token is not valid") {
+          console.log(err.response);
+          if(err.response && err.response.data && err.response.data.msg === "Token is not valid") {
             history.push('/login');       
           }
         })
