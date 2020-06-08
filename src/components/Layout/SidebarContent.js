@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Redirect, Route, Switch, Link } from 'react-router-dom';
-import { Container, ModalFooter, Modal, ModalBody, Alert , ModalHeader, Form, FormGroup, Input, Button, Label, InputGroup } from 'reactstrap';
+import { Container, ModalFooter, Modal, ModalBody, Alert , ModalHeader, Form, FormGroup, Input, Label, InputGroup } from 'reactstrap';
 import axios from 'axios';
+import Button from '@material-ui/core/Button'
 import PropTypes from "prop-types";
 import MaterialTitlePanel from "./MaterialTitlePanel";
 import { withRouter } from "react-router-dom";
@@ -11,7 +12,7 @@ import {Spinner} from 'react-bootstrap'
 
 const styles = {
   sidebar: {
-    width: 800,
+    width: "20vw",
     height: "90vh",
     marginTop: "35%"
   },
@@ -28,6 +29,7 @@ const styles = {
   },
   content: {
     height: "100%",
+    width:"15vw",
     marginTop: "64px",
     backgroundColor: "white"
   }
@@ -69,11 +71,13 @@ const SidebarContent = props => {
   const personalLinks = [];
   for (let ind = 0; ind < personalBoardsList.length; ind++) {
     personalLinks.push(
-      <div><Link to={"/boards/" + personalBoardsList[ind]}>{personalBoardsList[ind]}</Link></div>
+      <div style={{width:"auto"}} ><Button style={{width:"auto",fontFamily:"SaucerBB",fontSize:"2vh",color:"#1a37c7"}} onClick={()=>{
+        props.history.push("/boards/" + personalBoardsList[ind]);
+      }} >{ind}.{personalBoardsList[ind]}</Button></div>
     );
   }
   personalLinks.push(
-    <Link onClick={toggle}>Add New Board</Link>
+    <Button onClick={toggle} style={{marginTop:"3%",fontFamily:"SaucerBB",fontSize:"2vh" }} >Add New Board</Button>
   )
   console.log(personalLinks);
 
@@ -121,24 +125,25 @@ const SidebarContent = props => {
   return (
     <div style={{height: '100%', overflow: 'hidden'}}>
       <div style={styles.content} >
-      <Link to={{pathname:"/Allboards"}} /*component={}*/>
-          <Button style={{width:"100%",backgroundColor:"white"}} ><span style={styles.sidebarLink}>
-            <p style={{ color: "black", fontSize: "2vh" }} >View Boards</p>
-          </span>
+          <Button style={{width:"100%",backgroundColor:"white",height:"7%"}} onClick={() => {
+            props.history.push("/Allboards")
+          }} >
+            <p style={{ color: "#363532", fontSize: "2vh",fontFamily:"SaucerBB"}} >View Boards</p>
           </Button>
-        </Link>
         <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
-        <Link path='/' /*component={}*/>
-          <span style={styles.sidebarLink} onClick={viewPersonalBoards}>
-            <p style={{ color: "black", fontSize: "2vh" }} >Personal Boards</p>
-          </span>
-        </Link>
+        <Button style={{width:"100%",backgroundColor:"white",height:"7%"}} onClick={() => {
+            ///props.history.push("/")
+            viewPersonalBoards()
+          }} >
+            <p style={{ color: "#363532", fontSize: "2vh",fontFamily:"SaucerBB"}} >Personal Boards</p>
+          </Button>
+        <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
+        <div style={{ height: "3%", width: "100%", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
         {personalToggle ? (
           <span>{personalLinks}</span>
         ) : (
             <span></span>
           )}
-        <div style={{ height: 0, width: "100%", border: "2px solid blue", borderBottomWidth: "2px", borderTopWidth: "0px", borderRightWidth: "0px", borderLeftWidth: "0px" }} ></div>
         <Logout text={"Logout"} />
       </div>
       <div>
