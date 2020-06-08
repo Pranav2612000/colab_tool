@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import url from '../../links';
+import { withRouter } from "react-router-dom";
 import moment from 'moment';
-
 
 import {
   Card, CardImg, CardText, CardBody,
@@ -118,13 +118,13 @@ const ListCard = (props) => {
       board_list: props.board.list,
       boardcolor: props.board.boardcolor,
     };
+    var history = props.history;
     await axios.post(url + "board/addboard/", reqData, {
       headers: { 'colab-tool-token': localStorage.getItem("colab-tool-token") },
       body: reqData
     })
       .then(res => {
-        alert('card deleted. Refresh to view result.');
-        props.history.push('/boards/' + props.board.boardname);
+        history.push('/boards/' + props.board.boardname);
         console.log(res);
       })
       .catch(err => {
@@ -136,18 +136,15 @@ const ListCard = (props) => {
   }
   return (
     <div>
-        <Card body outline color="#717175" style={getCardStyles(props["in_context"], props["due_date"], props["due_time"])}>
-          <CardTitle style={getCardTitleStyles()}><b>{props.title}</b></CardTitle>
-          <CardText style={getCardTextStyles()}><li>{props.text}</li></CardText>
-          <div class='controls' style = {{textAlign: 'right'}}>
-            <Button style={{backgroundColor:"transparent", border: 'none'}}  ><i class='fa fa-expand-alt' style={{color:'black'}}/></Button>
-            <Button onClick = {deleteCard} style={{backgroundColor:"transparent", border:"none"}}  ><i class='fa fa-trash' style={{color:'black'}}/></Button>
-          </div>
-        </Card>
+      <Card body outline color="#717175" style={getCardStyles(props["in_context"], props["due_date"], props["due_time"])}>
+        <CardTitle style={getCardTitleStyles()}><b>{props.title}</b></CardTitle>
+        <CardText style={getCardTextStyles()}>{props.text}</CardText>
+        <div class='controls' style={{ textAlign: 'right' }}>
+          <Button style={{ backgroundColor: "transparent", border: 'none' }}  ><i class='fa fa-expand-alt' style={{ color: 'black' }} /></Button>
+          <Button onClick={deleteCard} style={{ backgroundColor: "transparent", border: "none" }}  ><i class='fa fa-trash' style={{ color: 'black' }} /></Button>
+        </div>
+      </Card>
     </div>
-
-
   );
-
 };
-export default ListCard;
+export default withRouter(ListCard);
