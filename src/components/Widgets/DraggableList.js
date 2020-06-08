@@ -18,6 +18,8 @@ const DraggableList = props => {
   const [cardTitle, setCardTitle] = useState('');
   const [cardText, setCardText] = useState('');
   const [dueDate, setDueDate] = useState('');
+  const [dueTime, setDueTime] = useState('');
+
   const [pos, setPos] = useState({
     x: props.x,
     y: props.y
@@ -133,7 +135,7 @@ const DraggableList = props => {
       .catch(err => {
         console.log(err);
       })
-      return;
+    return;
   }
 
   const addCard = async () => {
@@ -144,6 +146,7 @@ const DraggableList = props => {
       title: cardTitle,
       text: cardText,
       due_date: dueDate,
+      due_time : dueTime,
       attachement: null
     };
     setLoading(true)
@@ -387,8 +390,19 @@ const DraggableList = props => {
                 name="due_date"
                 id="due_date"
                 value={dueDate}
-                min = {moment().format("YYYY-MM-DD")}
+                //min={moment().format("YYYY-MM-DD")}
                 onChange={e => setDueDate(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="due_time">Due Time</Label>
+              <Input
+                type="time"
+                name="due_time"
+                id="due_time"
+                value={dueTime}
+                onChange={e => setDueTime(e.target.value)}
+                placeholder="time"
               />
             </FormGroup>
           </ModalBody>
