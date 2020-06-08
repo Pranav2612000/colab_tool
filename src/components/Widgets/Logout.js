@@ -1,7 +1,8 @@
-import React from "react";
+import React,{useState} from "react";
 import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button"
 import { makeStyles } from '@material-ui/core/styles';
+import {Redirect} from 'react-router-dom'
 const useStyles= makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -21,17 +22,29 @@ const useStyles= makeStyles((theme) => ({
     margin: "auto",
   },
 }));
+
 function Logout(props) {
+  const [done,setDone]=useState(false);
   const classes=useStyles();
+  if(done)
+  {
+    return(
+    <Redirect to={{pathname:"/login/"}}/>
+    )
+  }
+  else{
   return (
       <div style={{marginTop:"2vh",fontSize:"2vh"}} >
-        <Link to="/login/"><Button type="submit"
+        <Button type="submit"
             id="submit"
             variant="contained"
             color="primary"
             className={classes.submit}
-            style={{marginTop:"2vh"}} >{props.text}</Button></Link>
+            style={{marginTop:"2vh"}} onClick={() => {
+              setDone(true);
+            }} >{props.text}</Button>
       </div>
   );
+  }
 }
 export default Logout;
