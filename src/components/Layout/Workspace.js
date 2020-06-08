@@ -35,6 +35,7 @@ const Workspace = props => {
         })
         .then(res => {
           console.log(res.data);
+          lists = [];
           setBoard(res.data);
           setLoadingDone(true);
           var new_searcher = new FuzzySearch(
