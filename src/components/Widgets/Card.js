@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import url from '../../links';
 import { withRouter } from "react-router-dom";
 import moment from 'moment';
+import { Container, Row, Col, ModalFooter, Modal, ModalBody, ModalHeader, Form, FormGroup, Input, Button, Label } from 'reactstrap';
 
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
+  CardTitle, CardSubtitle
 } from 'reactstrap';
 
 const getCardStyles = (isSelected, due_date, due_time) => {
@@ -79,6 +81,9 @@ const deleteCard = (props) => {
 }
 
 const ListCard = (props) => {
+  const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const toggle = () => setModal(!modal);
   console.log(props);
   const deleteCard = async () => {
     console.log("in delete card fun");
@@ -140,10 +145,44 @@ const ListCard = (props) => {
         <CardTitle style={getCardTitleStyles()}><b>{props.title}</b></CardTitle>
         <CardText style={getCardTextStyles()}>{props.text}</CardText>
         <div class='controls' style={{ textAlign: 'right' }}>
-          <Button style={{ backgroundColor: "transparent", border: 'none' }}  ><i class='fa fa-expand-alt' style={{ color: 'black' }} /></Button>
+          <Button onClick={toggle} style={{ backgroundColor: "transparent", border: 'none' }}  ><i class='fa fa-expand-alt' style={{ color: 'black' }} /></Button>
           <Button onClick={deleteCard} style={{ backgroundColor: "transparent", border: "none" }}  ><i class='fa fa-trash' style={{ color: 'black' }} /></Button>
         </div>
       </Card>
+
+
+
+
+      {/* Modal to add new cards. */}
+      <Modal isOpen={modal} toggle={toggle}>
+        <Form>
+          <ModalHeader toggle={toggle}>Card Details</ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <Label for="cardname">Card Title: </Label>
+              <Label><b>{' ' + props.title}</b></Label>
+            </FormGroup>
+            <FormGroup>
+              <Label for="cardtext">Card Text: </Label>
+              <Label><b>{' ' + props.text}</b></Label>
+            </FormGroup>
+            <FormGroup>
+              <Label for="due_date">Due Date: </Label>
+              <Label><b>{' ' + props["due_date"]}</b></Label>
+            </FormGroup>
+            <FormGroup>
+              <Label for="due_time">Due Time: </Label>
+              <Label><b>{' ' + props["due_time"]}</b></Label>
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={toggle}>
+              Close
+                        </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+
     </div>
   );
 };
