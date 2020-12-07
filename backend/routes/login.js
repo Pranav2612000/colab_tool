@@ -64,20 +64,29 @@ router.post('/auth', async (req, res) => {
 });
 router.post('/register', (req, res) => {
     const data = req.body;
-    bcrypt.hash(data.password, 10, function(err, hash) {
+    bcrypt.hash(data.password, 10, async function(err, hash) {
         if (err) {
             res.status(400).json({err: 'error processing password'});
             throw err;
         }
         data.password = hash;
-        var obj = new User(data);
-        obj.save(err => {
-        if (err) {
-            res.status(400).json({ err: 'error fetching from db' });
-        } else {
-            res.status(200).json({ status: 'success' });
-        }
-        });
+		const already_user = await User.find({ username: data.username }).exec();
+		console.log(already_user)
+		if(already_user.length == 0) {
+        	var obj = new User(data);
+        	obj.save(err => {
+        	if (err) {
+        	    res.status(400).json({ err: 'error fetching from db' });
+        	} else {
+        	    res.status(200).json({ status: 'success' });
+        	}
+        	});
+			return;
+		}
+		else {
+			res.status(600).json({ err: 'User already exist' });
+			return;
+		}
     });
 });
 module.exports = router;
