@@ -25,7 +25,7 @@ export default class LoginForm extends React.Component {
     };
   }
 
-  handleValidSubmit = (event, values) => {
+  handleValidSubmit = async (event, values) => {
     this.setState({
         loading: true
     });
@@ -38,10 +38,10 @@ export default class LoginForm extends React.Component {
         password: values.password,
         name: values.name,
     };
-    axios.post(url + "login/register/",reqData)
+    await axios.post(url + "login/register/",reqData)
     .then(res => {
         if(res.status == 200) {
-            //alert("User Added Successfully!");
+            alert("User Added Successfully!");
             this.setState({
                 username: values.username,
                 password: values.password,
@@ -49,8 +49,11 @@ export default class LoginForm extends React.Component {
                 loading: false,
                 op_success: true
             });
-        } else {
-            alert("Error:" + res.err);
+        } else if (res.status == 400) {
+			alert("User already exist");
+		} else {
+			alert("User already exist");
+            // alert("Error:" + res.err);
         }
     })
     .catch(err => {
